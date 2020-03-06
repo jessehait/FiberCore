@@ -1,0 +1,173 @@
+﻿using RHGameCore.ResourceManagement;
+using RHLib.Tools;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine;
+using Logger = RHLib.Tools.Logger;
+
+namespace RHGameCore.Managers
+{
+    public enum ResourceFindMethod 
+    { 
+        File,
+        Directory,
+    }
+
+    public sealed class RHCore_ResourceManager : Manager, IResourceManager
+    {
+        private List<Resource> _resources = new List<Resource>();
+
+        public RHCore_ResourceManager()
+        {
+            GenerateResourcesList();
+        }
+
+        private void GenerateResourcesList()
+        {
+            if (RHCore.ResouresList == null || RHCore.ResouresList == "")
+            {
+                Logger.LogError("CORE.RESOURCES", "There is no ResourcesInfo.info found, please, use RHCore > Generate Resource List");
+                return;
+            }
+            
+            var list = RHCore.ResouresList.Split('\n').Where(x => x != "").ToArray();
+
+            foreach (var item in list)
+            {
+                _resources.Add(new Resource(item.Trim()));
+            }
+        }
+
+        public bool Get<T>(string path, out T resource) where T : Object
+        {
+            foreach (var item in _resources)
+            {
+                if (CheckResourcePath(path, item) && item.IsLoaded())
+                {
+                    resource = item._object as T;
+                    return true;
+                }
+            }
+            Logger.LogError("CORE.RESOURCES", "Resource \""+ path + "\" not loaded or path is invalid.");
+
+            resource = null;
+            return false;
+        }
+
+        public T Get<T>(string path) where T : Object
+        {
+            Get(path, out T result);
+            return result;
+        }
+
+        public void Load<T>(string path) where T : Object
+        {
+            bool error = true;
+            foreach (var item in _resources)
+            {
+                if (CheckResourcePath(path, item) && !item.IsLoaded())
+                {
+                    item.Load<T>();
+                    error = false;
+                }
+            }
+            if(error) Logger.LogError("CORE.RESOURCES", "Resource \"" + path + "\" already loaded or path is invalid.");
+
+        }
+
+        public void LoadAll<T>(string path) where T : Object
+        {
+            foreach (var item in _resources)
+            {
+                if (CheckResourcePath(path, item, ResourceFindMethod.Directory))
+                {
+                    if (!item.IsLoaded())
+                    {
+                        item.Load<T>();
+                    }
+                }
+            }
+        }
+
+        private bool CheckResourcePath(string path, Resource targerResource, ResourceFindMethod method = ResourceFindMethod.File)
+        {
+            path.Trim();
+
+            List<string> inputPath      = new List<string>();
+            List<string> inputDirectory = new List<string>();
+
+            if (path.ToList().Contains('/'))
+            {
+                inputPath      = path.Split('/').ToList();
+                inputDirectory = path.Split('/').ToList();
+
+                if(inputDirectory.LastOrDefault() == "")
+                inputDirectory.Remove(inputDirectory.LastOrDefault());
+            }
+            else
+            {
+                inputPath.Add(path);
+                inputDirectory.Add(path);
+            }
+
+            if (method == ResourceFindMethod.File)
+            {
+                if (inputPath.Count > 0)
+                {
+                    return ListContentEquals(inputPath, targerResource._path);
+                }
+            }
+            if (method == ResourceFindMethod.Directory)
+            {
+                if(path == "")
+                {
+                    return true;
+                }
+
+                if (inputDirectory.Count > 0)
+                {
+                    int countOfSame = 0;
+
+                    for (int i = 0; i < inputDirectory.Count; i++)
+                    {
+                        if(targerResource._directory.Count >= inputDirectory.Count)
+                        if (inputDirectory[i] == targerResource._directory[i]) countOfSame++;
+                    }
+                    if (countOfSame == inputDirectory.Count)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private bool ListContentEquals(List<string> list1, List<string> list2)
+        {
+            var cnt = new Dictionary<string, int>();
+            foreach (var item in list1)
+            {
+                if (cnt.ContainsKey(item))
+                {
+                    cnt[item]++;
+                }
+                else
+                {
+                    cnt.Add(item, 1);
+                }
+            }
+            foreach (var item in list2)
+            {
+                if (cnt.ContainsKey(item))
+                {
+                    cnt[item]--;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return cnt.Values.All(c => c == 0);
+        }
+    }
+}
