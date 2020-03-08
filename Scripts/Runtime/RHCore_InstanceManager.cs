@@ -17,7 +17,9 @@ namespace RHGameCore.Managers
         public void LoadInstance(int id, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace)
         {
             if (method == InstanceLoadMethod.Replace && _activeInstance)
+            {
                 SceneManager.UnloadSceneAsync(_activeInstance.gameObject.scene);
+            }
 
             var loading = SceneManager.LoadSceneAsync(id,LoadSceneMode.Additive);
 

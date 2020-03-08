@@ -1,6 +1,7 @@
 ﻿using RHGameCore.Managers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -9,10 +10,22 @@ namespace RHGameCore.DataManagement
     public sealed class RHCore_DataManager : Manager, IDataManager
     {
         private BasicData _data;
+        private string path;
 
-        public void InitializeAs<T>() where T: BasicData, new()
+        public event Action OnSaveRequested;
+        public event Action OnLoadRequested;
+
+        private void CheckDirectory()
         {
-            _data = new T() as BasicData;
+            path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + RHCore.AppName + @"\Save\";
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
+
+        public void Initialize<T>() where T: BasicData, new()
+        {
+            Reset<T>();
         }
 
         public void GetSaveData<T>(out T data) where T : BasicData
@@ -24,6 +37,11 @@ namespace RHGameCore.DataManagement
         {
             return _data as T;
         }
+        public void Reset<T>() where T : BasicData, new()
+        {
+            CheckDirectory();
+            _data = new T() as BasicData;
+        }
 
         public void GetSaveList(out IDataInfo[] basicDatas)
         {
@@ -32,6 +50,8 @@ namespace RHGameCore.DataManagement
 
         public void Save(string name = "", DataSaveMethod method = DataSaveMethod.Overwrite)
         {
+            OnSaveRequested?.Invoke();
+
             try
             {
                 SaveToFile(name,method);
@@ -41,6 +61,7 @@ namespace RHGameCore.DataManagement
 
         public void Load(string fileName = "")
         {
+            OnLoadRequested?.Invoke();
             try
             {
                 LoadFromFile(out var loadedData, fileName);
@@ -62,6 +83,7 @@ namespace RHGameCore.DataManagement
 
         public async void LoadAsync(string fileName = "",Action onComplete = null)
         {
+
             await Task.Run(() =>
             {
                 Load();
@@ -72,7 +94,7 @@ namespace RHGameCore.DataManagement
 
         private void LoadFilesAsList(out IDataInfo[] data)
         {
-            var path     = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + RHCore.AppName + @"\Save\";
+            CheckDirectory();
             var fileList = System.IO.Directory.GetFiles(path, "*.save", System.IO.SearchOption.TopDirectoryOnly);
             var files    = new BasicData[fileList.Length];
 
@@ -86,7 +108,7 @@ namespace RHGameCore.DataManagement
 
         private void LoadFromFile(out string data, string fileName = "")
         {
-            var path     = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + RHCore.AppName + @"\Save\";
+            CheckDirectory();
             string fileData = null;
 
             if (fileName == "")
@@ -119,7 +141,7 @@ namespace RHGameCore.DataManagement
         private void SaveToFile(string name = "",DataSaveMethod method = DataSaveMethod.Overwrite)
         {
             var stringData = JsonUtility.ToJson(_data);
-            var path       = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + RHCore.AppName + @"\Save\";
+            CheckDirectory();
 
             if (!System.IO.Directory.Exists(path))
                 System.IO.Directory.CreateDirectory(path);

@@ -35,8 +35,13 @@ namespace RHGameCore.ResourceManagement
         internal void UnLoad()
         {
             if (_object)
-                Resources.UnloadAsset(_object);
-            _object = null;
+            {
+                if(_object is GameObject go)
+                {
+                    Resources.UnloadAsset(go);
+                }
+                _object = null;
+            }
         }
 
         internal string GetPath()
