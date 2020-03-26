@@ -1,11 +1,10 @@
-﻿using RHGameCore.Managers;
+﻿using RHGameCore.DataManagement;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace RHGameCore.DataManagement
+namespace RHGameCore.Api
 {
     public sealed class RHCore_DataManager : Manager, IDataManager
     {
@@ -28,9 +27,20 @@ namespace RHGameCore.DataManagement
             Reset<T>();
         }
 
-        public void GetSaveData<T>(out T data) where T : BasicData
+        public bool GetSaveData<T>(out T data) where T : BasicData
         {
-            data = _data as T;
+            try
+            {
+                data = _data as T;
+                return true;
+            }
+            catch (Exception)
+            {
+
+                data = null;
+                return false;
+            }
+           
         }
 
         public T GetSaveData<T>() where T : BasicData

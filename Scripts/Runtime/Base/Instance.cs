@@ -10,7 +10,7 @@ namespace RHGameCore.Instances
         {
             this.ID = id;
 
-            RHLib.Tools.Logger.Log("CORE.Instance", "Instance id " + id + " was loaded");
+            RHGameCore.Tools.Logger.Log("CORE.Instance", "Instance id " + id + " was loaded");
             OnReady();
         }
 
@@ -22,7 +22,7 @@ namespace RHGameCore.Instances
             }
             else
             {
-                RHLib.Tools.Logger.LogError("CORE.Instance", "The instance id " + ID + " is not type of: \"" + typeof(T).ToString() + "\"");
+                RHGameCore.Tools.Logger.LogError("CORE.Instance", "The instance id " + ID + " is not type of: \"" + typeof(T).ToString() + "\"");
 
                 return null;
             }

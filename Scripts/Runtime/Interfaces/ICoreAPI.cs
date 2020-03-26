@@ -1,8 +1,6 @@
-﻿using RHGameCore.Managers;
-using System;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace RHGameCore
+namespace RHGameCore.Api
 {
     public interface ICoreAPI
     {

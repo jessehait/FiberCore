@@ -1,7 +1,10 @@
 ﻿using System;
 
-public interface IDelayManager
+namespace RHGameCore.Api
 {
-    void WaitSeconds(float seconds, Action onComplete);
-    void WaitUntil(Func<bool> condition, Action onComplete);
+    public interface IDelayManager
+    {
+        void WaitSeconds(float seconds, Action onComplete);
+        void WaitUntil(Func<bool> condition, Action onComplete);
+    }
 }

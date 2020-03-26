@@ -1,11 +1,7 @@
-﻿using RHGameCore.Managers;
-using System;
+﻿using System;
 using UnityEngine;
-using RHLib.ReactiveExtensions;
 using System.Threading.Tasks;
-using RHGameCore.Instances;
-using System.Collections;
-using RHGameCore.DataManagement;
+using RHGameCore.Api;
 
 namespace RHGameCore
 {
@@ -78,14 +74,14 @@ namespace RHGameCore
                 {
                     InitializeManagers();
                     IsInitialized = true;
-                    RHLib.Tools.Logger.Log("CORE", "Initialization success.");
+                    RHGameCore.Tools.Logger.Log("CORE", "Initialization success.");
                 });
 
                 onInitialize?.Invoke();
             }
             else
             {
-                RHLib.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                RHGameCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
         }
     }

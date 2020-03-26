@@ -4,28 +4,31 @@ using UnityEditor;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.PackageManager;
 
-public static class RHCore_PackageUpdater
+namespace RHGameCore.Editor
 {
-    static AddRequest Request;
-
-    [MenuItem("RHCore/Update")]
-    static void Add()
+    public static class RHCore_PackageUpdater
     {
-        // Add a package to the Project
-        Request = Client.Add(@"C:\Users\pcsin\Home\Work\Unity\RHCore\Assets\RHCore");
-        EditorApplication.update += Progress;
-    }
+        static AddRequest Request;
 
-    static void Progress()
-    {
-        if (Request.IsCompleted)
+        [MenuItem("RHCore/Update")]
+        static void Add()
         {
-            if (Request.Status == StatusCode.Success)
-                Debug.Log("Core updated: " + Request.Result.packageId);
-            else if (Request.Status >= StatusCode.Failure)
-                Debug.Log("Core update failed: " + Request.Error.message);
+            // Add a package to the Project
+            Request = Client.Add(@"C:\Users\pcsin\Home\Work\Unity\RHCore\Assets\RHCore");
+            EditorApplication.update += Progress;
+        }
 
-            EditorApplication.update -= Progress;
+        static void Progress()
+        {
+            if (Request.IsCompleted)
+            {
+                if (Request.Status == StatusCode.Success)
+                    Debug.Log("Core updated: " + Request.Result.packageId);
+                else if (Request.Status >= StatusCode.Failure)
+                    Debug.Log("Core update failed: " + Request.Error.message);
+
+                EditorApplication.update -= Progress;
+            }
         }
     }
 }

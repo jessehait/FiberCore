@@ -1,13 +1,10 @@
 ﻿using RHGameCore.ResourceManagement;
-using RHLib.Tools;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
-using Logger = RHLib.Tools.Logger;
+using Logger = RHGameCore.Tools.Logger;
 
-namespace RHGameCore.Managers
+namespace RHGameCore.Api
 {
     public enum ResourceFindMethod 
     { 
@@ -42,12 +39,20 @@ namespace RHGameCore.Managers
 
         public void Unload(string path)
         {
-            var resource = _resources.Where(x => x.GetPath() == path).SingleOrDefault();
-
-            if (resource != null)
+            try
             {
-                resource.UnLoad();
+                var resource = _resources.Where(x => x.GetPath() == path).SingleOrDefault();
+
+                if (resource != null)
+                {
+                    resource.UnLoad();
+                }
             }
+            catch (System.Exception)
+            {
+                Logger.LogWarning("CORE.RESOURCES", "Resource you try to unload is not loaded");
+            }
+          
        
         }
 

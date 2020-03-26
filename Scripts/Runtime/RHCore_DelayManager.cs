@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace RHGameCore.Managers
+namespace RHGameCore.Api
 {
     public sealed class RHCore_DelayManager : Manager, IDelayManager
     {

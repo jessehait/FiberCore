@@ -1,4 +1,4 @@
-﻿namespace RHGameCore
+﻿namespace RHGameCore.Api
 {
     public interface ICoreConditions
     {

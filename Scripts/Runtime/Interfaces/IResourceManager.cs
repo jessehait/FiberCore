@@ -1,7 +1,7 @@
 ﻿using RHGameCore.ResourceManagement;
 using System;
 
-namespace RHGameCore.Managers
+namespace RHGameCore.Api
 {
     public interface IResourceManager
     {
