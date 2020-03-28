@@ -1,3 +1,6 @@
-﻿public interface IAudioManager
+﻿namespace RHGameCore.Api
 {
+    public interface IAudioManager
+    {
+    }
 }

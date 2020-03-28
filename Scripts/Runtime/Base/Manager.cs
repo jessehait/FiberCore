@@ -1,4 +1,4 @@
-﻿namespace RHGameCore.Managers
+﻿namespace RHGameCore.Api
 {
     public abstract class Manager
     {

@@ -9,63 +9,104 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-class RHCore_BuildPreprocess : IPreprocessBuildWithReport
+namespace RHGameCore.Editor
 {
-    public int callbackOrder { get { return 0; } }
-
-    [MenuItem("RHCore/Update Resources")]
-    public static void UpdateResources()
+    class RHCore_BuildPreprocess : IPreprocessBuildWithReport
     {
-        var path = Application.dataPath + "/Resources";
+        public int callbackOrder { get { return 0; } }
 
-        if (!System.IO.Directory.Exists(path))
-            System.IO.Directory.CreateDirectory(path);
 
-        var directories = Directory.GetDirectories(path + "/").ToList();
 
-        for (int i = 0; i < directories.Count; i++)
+        public static List<string> GetDirectories(string path, string searchPattern = "*",
+           SearchOption searchOption = SearchOption.AllDirectories)
         {
-            var old = directories[i];
+            if (searchOption == SearchOption.TopDirectoryOnly)
+                return Directory.GetDirectories(path, searchPattern).ToList();
 
-            directories[i] = old.Replace(path + "/", "");
-        };
+            var directories = new List<string>(GetDirectories(path, searchPattern));
 
-        var resources = new List<string>();
+            for (var i = 0; i < directories.Count; i++)
+                directories.AddRange(GetDirectories(directories[i], searchPattern));
 
-        foreach (var item in directories)
+            return directories;
+        }
+
+        private static List<string> GetDirectories(string path, string searchPattern)
         {
-            var itemsInFolder = Resources.LoadAll(item);
-
-            foreach (var asset in itemsInFolder)
+            try
             {
-                resources.Add(item + "/" + asset.name);
+                return Directory.GetDirectories(path, searchPattern).ToList();
+            }
+            catch (System.Exception)
+            {
+                return new List<string>();
             }
         }
 
-        using (FileStream fs = File.Create(path + "/ResourcesInfo.txt"))
-        {
-            fs.Flush();
-            fs.Close();
-        }
 
-
-        using (StreamWriter sw = File.AppendText(Application.dataPath + "/Resources/ResourcesInfo.txt"))
+        [MenuItem("RHCore/Update Resources")]
+        public static void UpdateResources()
         {
-            foreach (var item in resources)
+            var path = Application.dataPath + "/Resources";
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            var directories = GetDirectories(path);
+            directories.Add(path + "/");
+
+            for (int i = 0; i < directories.Count; i++)
             {
-                Debug.Log("<color=orange>[CORE.BUILD]</color>Resource registered: " + item);
-                sw.WriteLine(item);
+                directories[i] = directories[i].Replace(@"\", "/");
             }
+
+
+            for (int i = 0; i < directories.Count; i++)
+            {
+                var old = directories[i];
+
+                directories[i] = old.Replace(path + "/", "");
+            };
+
+            var resources = new List<string>();
+
+            foreach (var item in directories)
+            {
+                var newpath = path + "/" + item;
+                var files = Directory.GetFiles(newpath, "*", SearchOption.TopDirectoryOnly).Where(name => !name.EndsWith(".meta"));
+                foreach (var file in files)
+                {
+                    var trimmedFile = file.Replace(@"\", "/").Replace(path + "/", "").Split('.')[0];
+                    resources.Add(trimmedFile.Trim());
+                }
+            }
+
+
+            using (FileStream fs = File.Create(path + "/ResourcesInfo.txt"))
+            {
+                fs.Flush();
+                fs.Close();
+            }
+
+
+            using (StreamWriter sw = File.AppendText(Application.dataPath + "/Resources/ResourcesInfo.txt"))
+            {
+                foreach (var item in resources)
+                {
+                    Debug.Log("<color=orange><b>[CORE.BUILD]: </b></color>Resource registered: " + item);
+                    sw.WriteLine(item);
+                }
+            }
+
+            AssetDatabase.Refresh();
+
+            Debug.Log("<color=orange><b>[CORE.BUILD]: </b></color>Resource list compilled successfully");
         }
 
-        AssetDatabase.Refresh();
-
-        Debug.Log("<color=orange>[CORE.BUILD]</color>Resource list compilled successfully");
-    }
-
-    public void OnPreprocessBuild(BuildReport report)
-    {
-        UpdateResources();
+        public void OnPreprocessBuild(BuildReport report)
+        {
+            UpdateResources();
+        }
     }
 }
 #endif

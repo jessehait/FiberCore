@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RHGameCore.Managers
+namespace RHGameCore.Api
 {
     [CreateAssetMenu(fileName ="RHCore Config",menuName ="RHCore/Config")]
     public class RHCoreConfig: ScriptableObject

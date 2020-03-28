@@ -1,15 +1,14 @@
-﻿using RHGameCore.Managers;
-using System;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace RHGameCore
+namespace RHGameCore.Api
 {
     public interface ICoreAPI
     {
         IInstanceManager    Instances          { get; }
         IDelayManager       Delays             { get; }
         IUIManager          UI                 { get; }
-        IDataManager        Data               { get; }
+        IDataManager        FileData               { get; }
+        IRegistryManager    Registry           { get; }
         IAudioManager       Audio              { get; }
         IResourceManager    Resources          { get; }
         IMainThreadObserver MainThreadObserver { get; }

@@ -1,8 +1,7 @@
 ﻿using RHGameCore.UI;
-using System;
 using System.Collections.Generic;
 
-namespace RHGameCore.Managers
+namespace RHGameCore.Api
 {
     public sealed class RHCore_UIManager : Manager, IUIManager
     {
@@ -27,7 +26,7 @@ namespace RHGameCore.Managers
 
             if (!_allScreens.ContainsKey(key))
             {
-                RHLib.Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
+                RHGameCore.Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
             }
             else
             {
@@ -47,7 +46,7 @@ namespace RHGameCore.Managers
             }
             else
             {
-                RHLib.Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
+                RHGameCore.Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
                 return null;
             }
         }
@@ -62,7 +61,7 @@ namespace RHGameCore.Managers
                 if(screen is T tmp)
                     return tmp;
                 else
-                    RHLib.Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
+                    RHGameCore.Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
             }
             return null;
         }

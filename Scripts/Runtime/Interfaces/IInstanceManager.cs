@@ -2,11 +2,14 @@
 using RHLib.ReactiveExtensions;
 using System;
 
-public interface IInstanceManager
+namespace RHGameCore.Api
 {
-    IReactiveCommand<Instance> OnInstanceChanged { get; }
-    Instance GetActiveInstance();
-    T GetActiveInstance<T>() where T : Instance;
-    void LoadInstance(int id, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace);
-    void LoadInstance(string name, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace);
+    public interface IInstanceManager
+    {
+        event Action<Instance> OnInstanceChanged;
+        Instance GetActiveInstance();
+        T GetActiveInstance<T>() where T : Instance;
+        void LoadInstance(int id, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace);
+        void LoadInstance(string name, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace);
+    }
 }

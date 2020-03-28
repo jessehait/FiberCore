@@ -1,13 +1,10 @@
 ﻿using RHGameCore.ResourceManagement;
-using RHLib.Tools;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
-using Logger = RHLib.Tools.Logger;
+using Logger = RHGameCore.Tools.Logger;
 
-namespace RHGameCore.Managers
+namespace RHGameCore.Api
 {
     public enum ResourceFindMethod 
     { 
@@ -40,6 +37,44 @@ namespace RHGameCore.Managers
             }
         }
 
+        public void Unload(string path)
+        {
+            try
+            {
+                var resource = _resources.Where(x => x.GetPath() == path).SingleOrDefault();
+
+                if (resource != null)
+                {
+                    resource.UnLoad();
+                }
+            }
+            catch (System.Exception)
+            {
+                Logger.LogWarning("CORE.RESOURCES", "Resource you try to unload is not loaded");
+            }
+          
+       
+        }
+
+        public void UnloadAll(string path)
+        {
+            foreach (var item in _resources)
+            {
+                if (CheckResourcePath(path, item) && item.IsLoaded())
+                {
+                    item.UnLoad();
+                }
+            }
+        }
+
+        public void UnloadAll()
+        {
+            foreach (var item in _resources)
+            {
+                Unload(item.GetPath());
+            }
+        }
+
         public bool Get<T>(string path, out T resource) where T : Object
         {
             foreach (var item in _resources)
@@ -62,7 +97,7 @@ namespace RHGameCore.Managers
             return result;
         }
 
-        public void Load<T>(string path) where T : Object
+        public bool Load<T>(string path) where T : Object
         {
             bool error = true;
             foreach (var item in _resources)
@@ -73,8 +108,23 @@ namespace RHGameCore.Managers
                     error = false;
                 }
             }
-            if(error) Logger.LogError("CORE.RESOURCES", "Resource \"" + path + "\" already loaded or path is invalid.");
+            if (error)
+            {
+                
+                Logger.LogError("CORE.RESOURCES", "Resource \"" + path + "\" already loaded or path is invalid.");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
 
+        }
+
+        public T LoadAndGet<T>(string path) where T : Object
+        {
+            if (Load<T>(path)) return Get<T>(path);
+            return null;
         }
 
         public void LoadAll<T>(string path) where T : Object
