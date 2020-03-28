@@ -6,7 +6,7 @@ namespace RHGameCore.Api
 {
     public interface IInstanceManager
     {
-        IReactiveCommand<Instance> OnInstanceChanged { get; }
+        event Action<Instance> OnInstanceChanged;
         Instance GetActiveInstance();
         T GetActiveInstance<T>() where T : Instance;
         void LoadInstance(int id, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace);

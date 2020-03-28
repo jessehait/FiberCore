@@ -28,13 +28,11 @@ namespace RHGameCore.Instances
             }
         }
 
-
         private void OnDestroy()
         {
             OnUnload();
         }
         protected abstract void OnReady();
         protected abstract void OnUnload();
-
     }
 }

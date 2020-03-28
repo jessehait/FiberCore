@@ -8,18 +8,18 @@ namespace RHGameCore.Api
 {
     public sealed class RHCore_DataManager : Manager, IDataManager
     {
-        private BasicData _data;
-        private string path;
+        private BasicData    _data;
+        private string       _path;
 
         public event Action OnSaveRequested;
         public event Action OnLoadRequested;
 
         private void CheckDirectory()
         {
-            path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + RHCore.AppName + @"\Save\";
+            _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + RHCore.AppName + @"\Save\";
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
+            if (!Directory.Exists(_path))
+                Directory.CreateDirectory(_path);
         }
 
         public void Initialize<T>() where T: BasicData, new()
@@ -47,6 +47,7 @@ namespace RHGameCore.Api
         {
             return _data as T;
         }
+      
         public void Reset<T>() where T : BasicData, new()
         {
             CheckDirectory();
@@ -64,7 +65,7 @@ namespace RHGameCore.Api
 
             try
             {
-                SaveToFile(name,method);
+               SaveToFile(name, method);
             }
             catch (Exception){}
         }
@@ -90,7 +91,6 @@ namespace RHGameCore.Api
             onComplete?.Invoke();
         }
 
-
         public async void LoadAsync(string fileName = "",Action onComplete = null)
         {
 
@@ -105,7 +105,7 @@ namespace RHGameCore.Api
         private void LoadFilesAsList(out IDataInfo[] data)
         {
             CheckDirectory();
-            var fileList = System.IO.Directory.GetFiles(path, "*.save", System.IO.SearchOption.TopDirectoryOnly);
+            var fileList = System.IO.Directory.GetFiles(_path, "*.save", System.IO.SearchOption.TopDirectoryOnly);
             var files    = new BasicData[fileList.Length];
 
             for (int i = 0; i < fileList.Length; i++)
@@ -123,10 +123,10 @@ namespace RHGameCore.Api
 
             if (fileName == "")
             {
-                if (System.IO.Directory.Exists(path))
+                if (System.IO.Directory.Exists(_path))
                 {
 
-                    var fileList = System.IO.Directory.GetFiles(path, "*.save", System.IO.SearchOption.TopDirectoryOnly);
+                    var fileList = System.IO.Directory.GetFiles(_path, "*.save", System.IO.SearchOption.TopDirectoryOnly);
 
                     var lastFileDate = DateTime.MinValue;
 
@@ -144,7 +144,7 @@ namespace RHGameCore.Api
             }
             else
             {
-                data = System.IO.File.ReadAllText(path + fileName);
+                data = System.IO.File.ReadAllText(_path + fileName);
             }
         }
 
@@ -153,8 +153,8 @@ namespace RHGameCore.Api
             var stringData = JsonUtility.ToJson(_data);
             CheckDirectory();
 
-            if (!System.IO.Directory.Exists(path))
-                System.IO.Directory.CreateDirectory(path);
+            if (!System.IO.Directory.Exists(_path))
+                System.IO.Directory.CreateDirectory(_path);
 
             if (method == DataSaveMethod.AsNew)
             {
@@ -173,7 +173,7 @@ namespace RHGameCore.Api
 
                 stringData = JsonUtility.ToJson(_data);
 
-                System.IO.File.WriteAllText(path + name, stringData, System.Text.Encoding.ASCII);
+                System.IO.File.WriteAllText(_path + name, stringData, System.Text.Encoding.ASCII);
             }
             else
             {
@@ -185,9 +185,53 @@ namespace RHGameCore.Api
 
                 _data.Modify(DateTime.Now);
 
-                System.IO.File.WriteAllText(path + _data.FileName, stringData, System.Text.Encoding.ASCII);
+                System.IO.File.WriteAllText(_path + _data.FileName, stringData, System.Text.Encoding.ASCII);
             }
         }
+        
+        //private void SaveToRegistry(string name = "", DataSaveMethod method = DataSaveMethod.Overwrite)
+        //{
+        //    var stringData = JsonUtility.ToJson(_data);
+        //    //CheckDirectory();
+
+        //    //if (!System.IO.Directory.Exists(_path))
+        //    //    System.IO.Directory.CreateDirectory(_path);
+
+        //    if (method == DataSaveMethod.AsNew)
+        //    {
+        //        var dt = DateTime.Now;
+        //        var date = dt.ToShortDateString();
+        //        var time = dt.ToString(@"hh\.mm\.ss");
+        //        var saveFormat = date + "_" + time;
+
+        //        if (name == "")
+        //        {
+        //            name = "Auto_" + saveFormat;
+        //        }
+        //       // name += ".save";
+
+        //        _data.Create(name, dt);
+
+        //        stringData = JsonUtility.ToJson(_data);
+
+        //        PlayerPrefs.SetString(name, stringData);
+
+        //       // System.IO.File.WriteAllText(_path + name, stringData, System.Text.Encoding.ASCII);
+        //    }
+        //    else
+        //    {
+        //        if (_data.FileName == "")
+        //        {
+        //            SaveToRegistry(name, DataSaveMethod.AsNew);
+        //            return;
+        //        }
+
+        //        _data.Modify(DateTime.Now);
+
+        //        PlayerPrefs.SetString(name, stringData);
+        //        //System.IO.File.WriteAllText(_path + _data.FileName, stringData, System.Text.Encoding.ASCII);
+        //    }
+        //}
     }
 }
 
@@ -195,4 +239,10 @@ public enum DataSaveMethod
 {
     AsNew,
     Overwrite,
+}
+
+public enum DataLocation
+{
+    File,
+    Registry,
 }

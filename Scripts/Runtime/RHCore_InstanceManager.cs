@@ -7,7 +7,7 @@ namespace RHGameCore.Api
 {
     public sealed class RHCore_InstanceManager : Manager, IInstanceManager
     {
-        public IReactiveCommand<Instance> OnInstanceChanged { get; private set; } = new ReactiveCommand<Instance>();
+        public event Action<Instance> OnInstanceChanged;
         public Instance _activeInstance;
 
         public Instance GetActiveInstance() => _activeInstance;
@@ -34,7 +34,7 @@ namespace RHGameCore.Api
                   
                     instance.Initialize(id);
                     _activeInstance = instance;
-                    OnInstanceChanged.Execute(instance);
+                    OnInstanceChanged.Invoke(instance);
                     onComplete?.Invoke(instance);
                 }
                 else
