@@ -11,5 +11,6 @@ namespace RHGameCore.Api
         T GetActiveInstance<T>() where T : Instance;
         void LoadInstance(int id, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace);
         void LoadInstance(string name, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace);
+        void UnloadActiveInstance(Action onComplete = null);
     }
 }

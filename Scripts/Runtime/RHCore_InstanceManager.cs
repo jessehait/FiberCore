@@ -55,6 +55,20 @@ namespace RHGameCore.Api
                 RHGameCore.Tools.Logger.LogError("CORE.InstanceManager", "The instance named \"" + name + "\" not found. Make sure u entered correct name and acene added to build settings.");
         }
 
+        public void UnloadActiveInstance(Action onComplete = null)
+        {
+            if (!_activeInstance) return;
+
+            var unloading = SceneManager.UnloadSceneAsync(_activeInstance.gameObject.scene);
+
+            unloading.completed += (x) =>
+            {
+                _activeInstance = null;
+                OnInstanceChanged.Invoke(null);
+                onComplete?.Invoke();
+            };
+        }
+        
         public T GetActiveInstance<T>() where T : Instance
         {
             if (_activeInstance is T instance)
