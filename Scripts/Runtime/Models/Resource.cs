@@ -38,7 +38,8 @@ namespace RHGameCore.ResourceManagement
             {
                 if(_object is GameObject go)
                 {
-                    Resources.UnloadAsset(go);
+                    //Resources.UnloadAsset(go);
+                    Object.DestroyImmediate(go);
                 }
                 _object = null;
             }
