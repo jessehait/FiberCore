@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace RHGameCore.ResourceManagement
 {
@@ -9,7 +10,7 @@ namespace RHGameCore.ResourceManagement
     {
         internal List<string>   _path;
         internal List<string> _directory;
-        internal UnityEngine.Object _object;
+        internal Object _object;
 
         internal bool IsLoaded()
         {
@@ -26,7 +27,7 @@ namespace RHGameCore.ResourceManagement
             _object    = null;
         }
 
-        internal bool Load<T>() where T : UnityEngine.Object
+        internal bool Load<T>() where T : Object
         {
             _object = Resources.Load<T>(GetPath());
 
@@ -35,11 +36,8 @@ namespace RHGameCore.ResourceManagement
 
         internal void UnLoad()
         {
-            if (IsLoaded())
-            {
-                _object = null;
-                GC.Collect();
-            }
+            _object = null;
+            GC.Collect();
         }
 
         internal string GetPath()

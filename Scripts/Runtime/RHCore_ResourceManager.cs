@@ -60,7 +60,7 @@ namespace RHGameCore.Api
         {
             foreach (var item in _resources)
             {
-                if (CheckResourcePath(path, item) && item.IsLoaded())
+                if (CheckResourcePath(path, item,ResourceFindMethod.Directory) && item.IsLoaded())
                 {
                     item.UnLoad();
                 }
