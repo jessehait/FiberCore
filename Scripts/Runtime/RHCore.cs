@@ -19,7 +19,7 @@ namespace RHGameCore
         public IRegistryManager    Registry           { get; private set; }
         public IAudioManager       Audio              { get; private set; }
         public IResourceManager    Resources          { get; private set; }
-        public IMainThreadObserver MainThreadObserver { get; private set; }
+        public ICoroutineHandler   CoroutineHandler   { get; private set; }
         public RHCoreConfig        Configurations      => _configurations;
         #endregion
 
@@ -31,23 +31,18 @@ namespace RHGameCore
         internal static string AppPath      { get; private set; }
         internal static string AppDataPath  { get; private set; }
         internal static string AppName      { get; private set; }
-        internal static string ResouresList { get; private set; }
+        internal static string ResourceList      { get; private set; }
 
         private RHCore()
         {
             API           = this;
             Conditions    = this;
         }
-
    
         void Awake()
         {
             DontDestroyOnLoad(this);
-
-            var helper = new GameObject("[RHCore].Main");
-            DontDestroyOnLoad(helper);
-
-            MainThreadObserver = helper.AddComponent<MainThreadObserver>();
+            CoroutineHandler = gameObject.AddComponent<CoroutineHandler>();
         }
 
         private void InitializeManagers()
@@ -61,12 +56,17 @@ namespace RHGameCore
             Resources          = new RHCore_ResourceManager();
         }
 
+        private void FillApplicationData()
+        {
+            AppPath     = Application.dataPath;
+            AppDataPath = Application.persistentDataPath;
+            AppName     = Application.productName;
+            ResourceList = (UnityEngine.Resources.Load("ResourcesInfo", typeof(TextAsset)) as TextAsset).text;
+        }
+
         public async void Initialize(Action onInitialize)
         {
-            AppPath      = Application.dataPath;
-            AppDataPath  = Application.persistentDataPath;
-            AppName      = Application.productName;
-            ResouresList = (UnityEngine.Resources.Load("ResourcesInfo",typeof(TextAsset)) as TextAsset).text;
+            FillApplicationData();
 
             if (!IsInitialized)
             {
