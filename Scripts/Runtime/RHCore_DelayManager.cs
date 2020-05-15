@@ -9,7 +9,7 @@ namespace RHGameCore.Api
 
         public void WaitSeconds(float seconds, Action onComplete)
         {
-            RHCore.API.MainThreadObserver.Root.StartCoroutine(Routine());
+            RHCore.API.CoroutineHandler.StartCoroutine(Routine());
 
             IEnumerator Routine()
             {
@@ -21,7 +21,7 @@ namespace RHGameCore.Api
 
         public void WaitUntil(Func<bool> condition, Action onComplete)
         {
-            RHCore.API.MainThreadObserver.Root.StartCoroutine(Routine());
+            RHCore.API.CoroutineHandler.StartCoroutine(Routine());
 
             IEnumerator Routine()
             {

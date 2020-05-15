@@ -23,13 +23,15 @@ namespace RHGameCore.Api
 
         private void GenerateResourcesList()
         {
-            if (RHCore.ResouresList == null || RHCore.ResouresList == "")
+          
+
+            if (RHCore.ResourceList == null || RHCore.ResourceList == "")
             {
                 Logger.LogError("CORE.RESOURCES", "There is no ResourcesInfo.info found, please, use RHCore > Generate Resource List");
                 return;
             }
             
-            var list = RHCore.ResouresList.Split('\n').Where(x => x != "").ToArray();
+            var list = RHCore.ResourceList.Split('\n').Where(x => x != "").ToArray();
 
             foreach (var item in list)
             {
@@ -52,8 +54,6 @@ namespace RHGameCore.Api
             {
                 Logger.LogWarning("CORE.RESOURCES", "Resource you try to unload is not loaded");
             }
-          
-       
         }
 
         public void UnloadAll(string path)
