@@ -5,7 +5,7 @@ using RHGameCore.Api;
 
 namespace RHGameCore
 {
-    public sealed class RHCore : MonoBehaviour, ICoreAPI,ICoreConditions
+    public sealed class RHCore : MonoBehaviour, ICoreAPI, ICoreConditions
     {
         [SerializeField]
         private RHCoreConfig _configurations;
@@ -58,13 +58,14 @@ namespace RHGameCore
 
         private void FillApplicationData()
         {
-            AppPath     = Application.dataPath;
-            AppDataPath = Application.persistentDataPath;
-            AppName     = Application.productName;
+            AppPath      = Application.dataPath;
+            AppDataPath  = Application.persistentDataPath;
+            AppName      = Application.productName;
             ResourceList = (UnityEngine.Resources.Load("ResourcesInfo", typeof(TextAsset)) as TextAsset).text;
         }
 
-        public async void Initialize(Action onInitialize)
+
+        public async void InitializeAsync(Action onInitialized)
         {
             FillApplicationData();
 
@@ -77,10 +78,26 @@ namespace RHGameCore
                     RHGameCore.Tools.Logger.Log("CORE", "Initialization success.");
                 });
 
-                onInitialize?.Invoke();
+                onInitialized?.Invoke();
             }
             else
             {
+                RHGameCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+            }
+        }
+
+        public void Initialize()
+        {
+            try
+            {
+                FillApplicationData();
+                InitializeManagers();
+                IsInitialized = true;
+                RHGameCore.Tools.Logger.Log("CORE", "Initialization success.");
+            }
+            catch (Exception)
+            {
+
                 RHGameCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
         }
