@@ -54,9 +54,9 @@ namespace RHGameCore.Api
             _data = new T() as BasicData;
         }
 
-        public void GetSaveList(out IDataInfo[] basicDatas)
+        public bool GetSaveList(out IDataInfo[] basicDatas)
         {
-            LoadFilesAsList(out basicDatas);
+           return LoadFilesAsList(out basicDatas);
         }
 
         public void Save(string name = "", DataSaveMethod method = DataSaveMethod.Overwrite)
@@ -102,7 +102,7 @@ namespace RHGameCore.Api
             onComplete?.Invoke();
         }
 
-        private void LoadFilesAsList(out IDataInfo[] data)
+        private bool LoadFilesAsList(out IDataInfo[] data)
         {
             CheckDirectory();
             var fileList = System.IO.Directory.GetFiles(_path, "*.save", System.IO.SearchOption.TopDirectoryOnly);
@@ -113,7 +113,16 @@ namespace RHGameCore.Api
                 files[i] = JsonUtility.FromJson<BasicData>(System.IO.File.ReadAllText(fileList[i]));
             }
 
-            data = files;
+            if (files.Length > 0)
+            {
+                data = files;
+                return true;
+            }
+            else
+            {
+                data = null;
+                return false;
+            }
         }
 
         private void LoadFromFile(out string data, string fileName = "")

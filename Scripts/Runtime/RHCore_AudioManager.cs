@@ -14,7 +14,6 @@ namespace RHGameCore.Api
             _listener = audioListener;
         }
 
-
         public AudioSource Play(AudioClip audioClip)
         {
             var config = new AudioClipConfig();
