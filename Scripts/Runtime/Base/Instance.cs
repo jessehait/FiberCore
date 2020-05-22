@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RHGameCore.Instances
+namespace FiberCore.Instances
 {
     public abstract class Instance: MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace RHGameCore.Instances
         {
             this.ID = id;
 
-            RHGameCore.Tools.Logger.Log("CORE.Instance", "Instance id " + id + " was loaded");
+            global::FiberCore.Tools.Logger.Log("CORE.Instance", "Instance id " + id + " was loaded");
             OnReady();
         }
 
@@ -22,7 +22,7 @@ namespace RHGameCore.Instances
             }
             else
             {
-                RHGameCore.Tools.Logger.LogError("CORE.Instance", "The instance id " + ID + " is not type of: \"" + typeof(T).ToString() + "\"");
+                global::FiberCore.Tools.Logger.LogError("CORE.Instance", "The instance id " + ID + " is not type of: \"" + typeof(T).ToString() + "\"");
 
                 return null;
             }

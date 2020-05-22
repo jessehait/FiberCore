@@ -1,11 +1,11 @@
-﻿using RHGameCore.Instances;
+﻿using FiberCore.Instances;
 using RHLib.ReactiveExtensions;
 using System;
 using UnityEngine.SceneManagement;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
-    public sealed class RHCore_InstanceManager : Manager, IInstanceManager
+    public sealed class FiberCore_InstanceManager : Manager, IInstanceManager
     {
         public event Action<Instance> OnInstanceChanged;
         public Instance _activeInstance;
@@ -39,7 +39,7 @@ namespace RHGameCore.Api
                 }
                 else
                 {
-                    RHGameCore.Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + id + " does not contains controller. Plaase add \"Instance\" component to the scene of your instance.");
+                    global::FiberCore.Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + id + " does not contains controller. Plaase add \"Instance\" component to the scene of your instance.");
                 }
             };
         }
@@ -52,7 +52,7 @@ namespace RHGameCore.Api
             if(id.HasValue)
                 LoadInstance(id.Value, onComplete, method);
             else
-                RHGameCore.Tools.Logger.LogError("CORE.InstanceManager", "The instance named \"" + name + "\" not found. Make sure u entered correct name and acene added to build settings.");
+                global::FiberCore.Tools.Logger.LogError("CORE.InstanceManager", "The instance named \"" + name + "\" not found. Make sure u entered correct name and acene added to build settings.");
         }
 
         public void UnloadActiveInstance(Action onComplete = null)
@@ -73,13 +73,13 @@ namespace RHGameCore.Api
         {
             if (_activeInstance is T instance)
             {
-                RHGameCore.Tools.Logger.Log("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " of type: \"" + typeof(T).ToString() + "\"  was found.");
+                global::FiberCore.Tools.Logger.Log("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " of type: \"" + typeof(T).ToString() + "\"  was found.");
 
                 return instance;
             }
             else
             {
-                RHGameCore.Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " does not contains controller of type: \"" + typeof(T).ToString() + "\"");
+                global::FiberCore.Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " does not contains controller of type: \"" + typeof(T).ToString() + "\"");
 
                 return null;
             }

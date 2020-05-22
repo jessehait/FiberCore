@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RHGameCore.DataManagement
+namespace FiberCore.DataManagement
 {
     [Serializable]
     public class BasicData : IDataInfo

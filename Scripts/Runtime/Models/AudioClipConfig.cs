@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RHGameCore.AudioManagement
+namespace FiberCore.AudioManagement
 {
     public sealed class AudioClipConfig 
     {

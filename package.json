@@ -1,13 +1,13 @@
 {
-  "name": "com.rhdev.rhcore",
+  "name": "FiberCore",
   "version": "1.2.8",
-  "displayName": "RHCore",
+  "displayName": "FiberCore",
   "description": "Game Core",
   "keywords": [
     "Core",
     "GameCore",
-    "RHDev",
-    "RHCore"
+    "Fiber",
+    "FiberCore"
   ],
   "repository": {
     "type": "git",

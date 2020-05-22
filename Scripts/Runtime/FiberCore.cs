@@ -1,14 +1,14 @@
 ﻿using System;
 using UnityEngine;
 using System.Threading.Tasks;
-using RHGameCore.Api;
+using FiberCore.Api;
 
-namespace RHGameCore
+namespace FiberCore
 {
-    public sealed class RHCore : MonoBehaviour, ICoreAPI, ICoreConditions
+    public sealed class FiberCore : MonoBehaviour, ICoreAPI, ICoreConditions
     {
         [SerializeField]
-        private RHCoreConfig _configurations;
+        private FiberCoreConfig _configurations;
 
         #region API
         public static ICoreAPI     API;               // API Instance
@@ -20,7 +20,7 @@ namespace RHGameCore
         public IAudioManager       Audio              { get; private set; }
         public IResourceManager    Resources          { get; private set; }
         public ICoroutineHandler   CoroutineHandler   { get; private set; }
-        public RHCoreConfig        Configurations      => _configurations;
+        public FiberCoreConfig     Configurations      => _configurations;
         #endregion
 
         #region CONDITIONS
@@ -33,7 +33,7 @@ namespace RHGameCore
         internal static string AppName      { get; private set; }
         internal static string ResourceList      { get; private set; }
 
-        private RHCore()
+        private FiberCore()
         {
             API           = this;
             Conditions    = this;
@@ -47,13 +47,13 @@ namespace RHGameCore
 
         private void InitializeManagers()
         {
-            Instances          = new RHCore_InstanceManager();
-            Delays             = new RHCore_DelayManager();
-            UI                 = new RHCore_UIManager();
-            FileData           = new RHCore_DataManager();
-            Registry           = new RHCore_RegistryManager();
-            Audio              = new RHCore_AudioManager();
-            Resources          = new RHCore_ResourceManager();
+            Instances          = new FiberCore_InstanceManager();
+            Delays             = new FiberCore_DelayManager();
+            UI                 = new FiberCore_UIManager();
+            FileData           = new FiberCore_DataManager();
+            Registry           = new FiberCore_RegistryManager();
+            Audio              = new FiberCore_AudioManager();
+            Resources          = new FiberCore_ResourceManager();
         }
 
         private void FillApplicationData()
@@ -75,14 +75,14 @@ namespace RHGameCore
                 {
                     InitializeManagers();
                     IsInitialized = true;
-                    RHGameCore.Tools.Logger.Log("CORE", "Initialization success.");
+                    global::FiberCore.Tools.Logger.Log("CORE", "Initialization success.");
                 });
 
                 onInitialized?.Invoke();
             }
             else
             {
-                RHGameCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                global::FiberCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
         }
 
@@ -93,12 +93,12 @@ namespace RHGameCore
                 FillApplicationData();
                 InitializeManagers();
                 IsInitialized = true;
-                RHGameCore.Tools.Logger.Log("CORE", "Initialization success.");
+                global::FiberCore.Tools.Logger.Log("CORE", "Initialization success.");
             }
             catch (Exception)
             {
 
-                RHGameCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                global::FiberCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
         }
     }

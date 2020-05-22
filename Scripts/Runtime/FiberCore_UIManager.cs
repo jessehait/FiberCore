@@ -1,9 +1,9 @@
-﻿using RHGameCore.UI;
+﻿using FiberCore.UI;
 using System.Collections.Generic;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
-    public sealed class RHCore_UIManager : Manager, IUIManager
+    public sealed class FiberCore_UIManager : Manager, IUIManager
     {
         private Dictionary<string, UIScreen> _allScreens = new Dictionary<string, UIScreen>();
 
@@ -26,7 +26,7 @@ namespace RHGameCore.Api
 
             if (!_allScreens.ContainsKey(key))
             {
-                RHGameCore.Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
+                global::FiberCore.Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
             }
             else
             {
@@ -46,7 +46,7 @@ namespace RHGameCore.Api
             }
             else
             {
-                RHGameCore.Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
+                global::FiberCore.Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
                 return null;
             }
         }
@@ -61,7 +61,7 @@ namespace RHGameCore.Api
                 if(screen is T tmp)
                     return tmp;
                 else
-                    RHGameCore.Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
+                    global::FiberCore.Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
             }
             return null;
         }

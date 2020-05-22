@@ -1,7 +1,7 @@
-﻿using RHGameCore.AudioManagement;
+﻿using FiberCore.AudioManagement;
 using UnityEngine;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface IAudioManager
     {

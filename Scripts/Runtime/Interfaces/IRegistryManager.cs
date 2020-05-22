@@ -1,7 +1,7 @@
-﻿using RHGameCore.DataManagement;
+﻿using FiberCore.DataManagement;
 using System;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface IRegistryManager
     {
@@ -47,7 +47,7 @@ namespace RHGameCore.Api
         /// </summary>
         /// <param name="name">Custome name</param>
         /// <param name="onComplete">Do on complete</param>
-        void LoadAsync(string name = "rhcore_registry_data", Action onComplete = null);
+        void LoadAsync(string name = "fibercore_registry_data", Action onComplete = null);
 
         /// <summary>
         /// Clear currently loaded data object (does not clear file itself)
@@ -59,13 +59,13 @@ namespace RHGameCore.Api
         /// Save data request
         /// </summary>
         /// <param name="name">Custome name</param>
-        void Save(string name = "rhcore_registry_data");
+        void Save(string name = "fibercore_registry_data");
 
         /// <summary>
         /// Async save data request
         /// </summary>
         /// <param name="name">Custome name</param>
         /// <param name="onComplete">Do on complete</param>
-        void SaveAsync(string name = "rhcore_registry_data", Action onComplete = null);
+        void SaveAsync(string name = "fibercore_registry_data", Action onComplete = null);
     }
 }

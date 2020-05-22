@@ -1,11 +1,11 @@
-﻿using RHGameCore.AudioManagement;
+﻿using FiberCore.AudioManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
-    public sealed class RHCore_AudioManager : Manager, IAudioManager
+    public sealed class FiberCore_AudioManager : Manager, IAudioManager
     {
         private AudioListener     _listener;
 
@@ -42,7 +42,7 @@ namespace RHGameCore.Api
 
             if(playConfig.destroySource)
             {
-                RHCore.API.CoroutineHandler.StartCoroutine(DestroySource(source));
+                FiberCore.API.CoroutineHandler.StartCoroutine(DestroySource(source));
             }
       
             return source;
