@@ -1,6 +1,6 @@
-﻿using RHGameCore.UI;
+﻿using FiberCore.UI;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface IUIManager
     {

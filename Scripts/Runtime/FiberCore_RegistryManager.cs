@@ -1,4 +1,4 @@
-﻿using RHGameCore.DataManagement;
+﻿using FiberCore.DataManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
-    class RHCore_RegistryManager : Manager, IRegistryManager
+    public class FiberCore_RegistryManager : Manager, IRegistryManager
     {
         private BasicData _data;
-        private const string DEFAULT_NAME = "rhcore_registry_data";
+        private const string DEFAULT_NAME = "fibercore_registry_data";
 
         public event Action OnSaveRequested;
         public event Action OnLoadRequested;

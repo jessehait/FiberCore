@@ -1,10 +1,10 @@
-﻿using RHGameCore.ResourceManagement;
+﻿using FiberCore.ResourceManagement;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Logger = RHGameCore.Tools.Logger;
+using Logger = FiberCore.Tools.Logger;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public enum ResourceFindMethod 
     { 
@@ -12,11 +12,11 @@ namespace RHGameCore.Api
         Directory,
     }
 
-    public sealed class RHCore_ResourceManager : Manager, IResourceManager
+    public sealed class FiberCore_ResourceManager : Manager, IResourceManager
     {
         private List<Resource> _resources = new List<Resource>();
 
-        public RHCore_ResourceManager()
+        public FiberCore_ResourceManager()
         {
             GenerateResourcesList();
         }
@@ -25,13 +25,13 @@ namespace RHGameCore.Api
         {
           
 
-            if (RHCore.ResourceList == null || RHCore.ResourceList == "")
+            if (FiberCore.ResourceList == null || FiberCore.ResourceList == "")
             {
                 Logger.LogError("CORE.RESOURCES", "There is no ResourcesInfo.info found, please, use RHCore > Generate Resource List");
                 return;
             }
             
-            var list = RHCore.ResourceList.Split('\n').Where(x => x != "").ToArray();
+            var list = FiberCore.ResourceList.Split('\n').Where(x => x != "").ToArray();
 
             foreach (var item in list)
             {

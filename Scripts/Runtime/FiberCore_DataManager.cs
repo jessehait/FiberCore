@@ -1,12 +1,12 @@
-﻿using RHGameCore.DataManagement;
+﻿using FiberCore.DataManagement;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
-    public sealed class RHCore_DataManager : Manager, IDataManager
+    public sealed class FiberCore_DataManager : Manager, IDataManager
     {
         private BasicData    _data;
         private string       _path;
@@ -16,7 +16,7 @@ namespace RHGameCore.Api
 
         private void CheckDirectory()
         {
-            _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + RHCore.AppName + @"\Save\";
+            _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\" + FiberCore.AppName + @"\Save\";
 
             if (!Directory.Exists(_path))
                 Directory.CreateDirectory(_path);

@@ -1,8 +1,8 @@
-﻿using RHGameCore.Instances;
+﻿using FiberCore.Instances;
 using RHLib.ReactiveExtensions;
 using System;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface IInstanceManager
     {

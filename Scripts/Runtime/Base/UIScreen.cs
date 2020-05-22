@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Reflection;
 using System.Collections;
 
-namespace RHGameCore.UI
+namespace FiberCore.UI
 {
     public abstract class UIScreen: MonoBehaviour
     {
@@ -23,8 +23,8 @@ namespace RHGameCore.UI
 
             IEnumerator InitChecker()
             {
-                yield return new WaitUntil(() => RHCore.Conditions.IsInitialized);
-                RHCore.API.UI.AddScreen(Key, this);
+                yield return new WaitUntil(() => FiberCore.Conditions.IsInitialized);
+                FiberCore.API.UI.AddScreen(Key, this);
                 OnReady();
             }
         }

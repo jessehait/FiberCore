@@ -9,9 +9,9 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace RHGameCore.Editor
+namespace FiberCore.Editor
 {
-    class RHCore_BuildPreprocess : IPreprocessBuildWithReport
+    class FiberCore_BuildPreprocess : IPreprocessBuildWithReport
     {
         public int callbackOrder { get { return 0; } }
 

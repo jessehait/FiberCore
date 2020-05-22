@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface ICoreConditions
     {

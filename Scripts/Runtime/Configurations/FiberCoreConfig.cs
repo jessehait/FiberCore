@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     [CreateAssetMenu(fileName ="RHCore Config",menuName ="RHCore/Config")]
-    public class RHCoreConfig: ScriptableObject
+    public class FiberCoreConfig : ScriptableObject
     {
         [Header("Debugging")]
         [SerializeField] private bool _allowLogs;

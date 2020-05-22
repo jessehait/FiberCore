@@ -1,7 +1,7 @@
-﻿using RHGameCore.DataManagement;
+﻿using FiberCore.DataManagement;
 using System;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface IDataManager
     {

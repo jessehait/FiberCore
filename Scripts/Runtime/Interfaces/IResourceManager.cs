@@ -1,7 +1,7 @@
-﻿using RHGameCore.ResourceManagement;
+﻿using FiberCore.ResourceManagement;
 using System;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface IResourceManager
     {

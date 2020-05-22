@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace RHGameCore
+namespace FiberCore
 {
     public class CoroutineHandler : MonoBehaviour, ICoroutineHandler
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RHGameCore.DataManagement
+namespace FiberCore.DataManagement
 {
     public interface IDataInfo
     {

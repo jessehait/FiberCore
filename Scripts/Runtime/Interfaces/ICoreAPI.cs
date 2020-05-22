@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RHGameCore.Api
+namespace FiberCore.Api
 {
     public interface ICoreAPI
     {
@@ -39,7 +39,7 @@ namespace RHGameCore.Api
         /// <summary>
         /// Active core configuration file (SO)
         /// </summary>
-        RHCoreConfig        Configurations     { get; }
+        FiberCoreConfig     Configurations     { get; }
 
         /// <summary>
         /// Entry point, should be loaded at Awake method of your main script e.g. "GameManager"

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RHGameCore.ResourceManagement
+namespace FiberCore.ResourceManagement
 {
     public class Resource
     {

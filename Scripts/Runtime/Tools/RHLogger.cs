@@ -1,28 +1,28 @@
-﻿using RHGameCore.Api;
+﻿using FiberCore.Api;
 using UnityEngine;
 
-namespace RHGameCore.Tools
+namespace FiberCore.Tools
 {
     public static class Logger
     {
 
         public static void Log(string tag, string message)
         {
-            if (!RHCore.API.Configurations.AllowLogs) return;
+            if (!FiberCore.API.Configurations.AllowLogs) return;
 
             Debug.Log("<color=green><b>[" + tag + "]: </b></color>" + message);
         }
 
         public static void LogWarning(string tag, string message)
         {
-            if (!RHCore.API.Configurations.AllowWarnings) return;
+            if (!FiberCore.API.Configurations.AllowWarnings) return;
 
             Debug.Log("<color=yellow><b>[" + tag + "]: </b></color>" + message);
         }
 
         public static void LogError(string tag, string message)
         {
-            if (!RHCore.API.Configurations.AllowErrors) return;
+            if (!FiberCore.API.Configurations.AllowErrors) return;
 
             Debug.Log("<color=red><b>[" + tag + "]: </b></color>" + message);
         }
