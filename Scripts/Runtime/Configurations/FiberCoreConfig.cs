@@ -2,7 +2,7 @@
 
 namespace Fiber.Core
 {
-    [CreateAssetMenu(fileName ="RHCore Config",menuName ="RHCore/Config")]
+    [CreateAssetMenu(fileName ="FiberCore Config",menuName ="Fiber/FiberCore/Config")]
     public class FiberCoreConfig : ScriptableObject
     {
         [Header("Debugging")]
