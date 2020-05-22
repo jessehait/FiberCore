@@ -1,7 +1,7 @@
-﻿using FiberCore.AudioManagement;
+﻿using Fiber.AudioManagement;
 using UnityEngine;
 
-namespace FiberCore.Api
+namespace Fiber.Api
 {
     public interface IAudioManager
     {

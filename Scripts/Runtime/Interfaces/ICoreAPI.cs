@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FiberCore.Api
+namespace Fiber.Api
 {
     public interface ICoreAPI
     {

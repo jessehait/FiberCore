@@ -1,8 +1,8 @@
-﻿using FiberCore.Instances;
+﻿using Fiber.Instances;
 using RHLib.ReactiveExtensions;
 using System;
 
-namespace FiberCore.Api
+namespace Fiber.Api
 {
     public interface IInstanceManager
     {

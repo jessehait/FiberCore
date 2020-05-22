@@ -1,4 +1,4 @@
-﻿namespace FiberCore.Api
+﻿namespace Fiber.Api
 {
     public abstract class Manager
     {

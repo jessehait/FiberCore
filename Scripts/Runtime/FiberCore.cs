@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using System.Threading.Tasks;
-using FiberCore.Api;
+using Fiber.Api;
 
-namespace FiberCore
+namespace Fiber
 {
     public sealed class FiberCore : MonoBehaviour, ICoreAPI, ICoreConditions
     {
@@ -75,14 +75,14 @@ namespace FiberCore
                 {
                     InitializeManagers();
                     IsInitialized = true;
-                    global::FiberCore.Tools.Logger.Log("CORE", "Initialization success.");
+                    global::Fiber.Tools.Logger.Log("CORE", "Initialization success.");
                 });
 
                 onInitialized?.Invoke();
             }
             else
             {
-                global::FiberCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                global::Fiber.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
         }
 
@@ -93,12 +93,12 @@ namespace FiberCore
                 FillApplicationData();
                 InitializeManagers();
                 IsInitialized = true;
-                global::FiberCore.Tools.Logger.Log("CORE", "Initialization success.");
+                global::Fiber.Tools.Logger.Log("CORE", "Initialization success.");
             }
             catch (Exception)
             {
 
-                global::FiberCore.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                global::Fiber.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
         }
     }

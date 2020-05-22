@@ -1,10 +1,10 @@
-﻿using FiberCore.ResourceManagement;
+﻿using Fiber.ResourceManagement;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Logger = FiberCore.Tools.Logger;
+using Logger = Fiber.Tools.Logger;
 
-namespace FiberCore.Api
+namespace Fiber.Api
 {
     public enum ResourceFindMethod 
     { 

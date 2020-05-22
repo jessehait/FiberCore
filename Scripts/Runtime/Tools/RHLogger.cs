@@ -1,7 +1,7 @@
-﻿using FiberCore.Api;
+﻿using Fiber.Api;
 using UnityEngine;
 
-namespace FiberCore.Tools
+namespace Fiber.Tools
 {
     public static class Logger
     {

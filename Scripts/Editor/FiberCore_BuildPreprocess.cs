@@ -9,7 +9,7 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace FiberCore.Editor
+namespace Fiber.Editor
 {
     class FiberCore_BuildPreprocess : IPreprocessBuildWithReport
     {

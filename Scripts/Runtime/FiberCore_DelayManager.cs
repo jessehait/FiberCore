@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace FiberCore.Api
+namespace Fiber.Api
 {
     public sealed class FiberCore_DelayManager : Manager, IDelayManager
     {
