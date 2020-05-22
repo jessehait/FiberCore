@@ -1,6 +1,6 @@
 {
-  "name": "FiberCore",
-  "version": "1.2.8",
+  "name": "com.fiber.fibercore",
+  "version": "1.0.0",
   "displayName": "FiberCore",
   "description": "Game Core",
   "keywords": [
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jessehait/com.rhdev.rhcore.git"
+    "url": "https://github.com/jessehait/FiberCore.git"
   },
   "author": {
     "name": "Rasim Hait",
