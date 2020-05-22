@@ -1,7 +1,7 @@
 ﻿using Fiber.UI;
 using System.Collections.Generic;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public sealed class FiberCore_UIManager : Manager, IUIManager
     {

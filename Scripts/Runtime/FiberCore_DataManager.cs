@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public sealed class FiberCore_DataManager : Manager, IDataManager
     {

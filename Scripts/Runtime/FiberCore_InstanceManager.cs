@@ -3,7 +3,7 @@ using RHLib.ReactiveExtensions;
 using System;
 using UnityEngine.SceneManagement;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public sealed class FiberCore_InstanceManager : Manager, IInstanceManager
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public sealed class FiberCore_AudioManager : Manager, IAudioManager
     {

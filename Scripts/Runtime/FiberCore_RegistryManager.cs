@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public class FiberCore_RegistryManager : Manager, IRegistryManager
     {

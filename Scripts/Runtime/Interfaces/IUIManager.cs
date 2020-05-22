@@ -1,6 +1,6 @@
 ﻿using Fiber.UI;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public interface IUIManager
     {

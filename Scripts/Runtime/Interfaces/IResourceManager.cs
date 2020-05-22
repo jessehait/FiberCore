@@ -1,7 +1,7 @@
 ﻿using Fiber.ResourceManagement;
 using System;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public interface IResourceManager
     {

@@ -2,7 +2,7 @@
 using RHLib.ReactiveExtensions;
 using System;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public interface IInstanceManager
     {

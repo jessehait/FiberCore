@@ -1,7 +1,7 @@
 ﻿using Fiber.DataManagement;
 using System;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public interface IRegistryManager
     {

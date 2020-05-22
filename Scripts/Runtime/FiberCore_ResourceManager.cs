@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Logger = Fiber.Tools.Logger;
 
-namespace Fiber.Api
+namespace Fiber.Core
 {
     public enum ResourceFindMethod 
     { 
