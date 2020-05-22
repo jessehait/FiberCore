@@ -1,7 +1,7 @@
-﻿using FiberCore.UI;
+﻿using Fiber.UI;
 using System.Collections.Generic;
 
-namespace FiberCore.Api
+namespace Fiber.Core
 {
     public sealed class FiberCore_UIManager : Manager, IUIManager
     {
@@ -26,7 +26,7 @@ namespace FiberCore.Api
 
             if (!_allScreens.ContainsKey(key))
             {
-                global::FiberCore.Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
+                global::Fiber.Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
             }
             else
             {
@@ -46,7 +46,7 @@ namespace FiberCore.Api
             }
             else
             {
-                global::FiberCore.Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
+                global::Fiber.Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
                 return null;
             }
         }
@@ -61,7 +61,7 @@ namespace FiberCore.Api
                 if(screen is T tmp)
                     return tmp;
                 else
-                    global::FiberCore.Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
+                    global::Fiber.Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
             }
             return null;
         }

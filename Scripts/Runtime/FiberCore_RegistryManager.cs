@@ -1,4 +1,4 @@
-﻿using FiberCore.DataManagement;
+﻿using Fiber.DataManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace FiberCore.Api
+namespace Fiber.Core
 {
     public class FiberCore_RegistryManager : Manager, IRegistryManager
     {

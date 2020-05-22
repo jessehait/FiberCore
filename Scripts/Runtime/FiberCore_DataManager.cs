@@ -1,10 +1,10 @@
-﻿using FiberCore.DataManagement;
+﻿using Fiber.DataManagement;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace FiberCore.Api
+namespace Fiber.Core
 {
     public sealed class FiberCore_DataManager : Manager, IDataManager
     {

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Reflection;
 using System.Collections;
 
-namespace FiberCore.UI
+namespace Fiber.UI
 {
     public abstract class UIScreen: MonoBehaviour
     {

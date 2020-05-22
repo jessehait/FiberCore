@@ -1,7 +1,7 @@
-﻿using FiberCore.DataManagement;
+﻿using Fiber.DataManagement;
 using System;
 
-namespace FiberCore.Api
+namespace Fiber.Core
 {
     public interface IDataManager
     {

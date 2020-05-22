@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FiberCore.DataManagement
+namespace Fiber.DataManagement
 {
     [Serializable]
     public class BasicData : IDataInfo
