@@ -1,9 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Web;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -14,8 +12,6 @@ namespace Fiber.Editor
     class FiberCore_BuildPreprocess : IPreprocessBuildWithReport
     {
         public int callbackOrder { get { return 0; } }
-
-
 
         public static List<string> GetDirectories(string path, string searchPattern = "*",
            SearchOption searchOption = SearchOption.AllDirectories)
@@ -44,7 +40,7 @@ namespace Fiber.Editor
         }
 
 
-        [MenuItem("RHCore/Update Resources")]
+        [MenuItem("Fiber/FiberCore/Update Resources")]
         public static void UpdateResources()
         {
             var path = Application.dataPath + "/Resources";
