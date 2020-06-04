@@ -40,7 +40,7 @@ namespace Fiber.Core
         /// Load last saved or specific data request
         /// </summary>
         /// <param name="name">Custome name</param>
-        void Load(string name = "rhcore_registry_data");
+        void Load(string name = "fibercore_registry_data");
 
         /// <summary>
         /// Async load last saved or specific data request
