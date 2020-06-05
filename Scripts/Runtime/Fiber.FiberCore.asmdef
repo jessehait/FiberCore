@@ -1,6 +1,8 @@
 {
     "name": "Fiber.FiberCore",
-    "references": [],
+    "references": [
+        "GUID:fe584f0173ce7dd4bbcb2d341af2fe12"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

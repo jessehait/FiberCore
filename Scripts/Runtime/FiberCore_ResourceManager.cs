@@ -25,9 +25,9 @@ namespace Fiber.Core
         {
           
 
-            if (FiberCore.ResourceList == null || FiberCore.ResourceList == "")
+            if (FiberCore.ResourceList == null)
             {
-                Logger.LogError("CORE.RESOURCES", "There is no ResourcesInfo.info found, please, use RHCore > Generate Resource List");
+                Logger.LogError("CORE.RESOURCES", "There is no ResourcesInfo found, please, use RHCore > Generate Resource List");
                 return;
             }
             

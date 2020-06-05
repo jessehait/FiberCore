@@ -6,11 +6,11 @@ namespace Fiber.Instances
     {
         public int ID { get; private set; }
 
-        public void Initialize(int id)
+        internal void Initialize(int id)
         {
             this.ID = id;
 
-            global::Fiber.Tools.Logger.Log("CORE.Instance", "Instance id " + id + " was loaded");
+            Tools.Logger.Log("CORE.Instance", "Instance id " + id + " was loaded");
             OnReady();
         }
 
@@ -22,7 +22,7 @@ namespace Fiber.Instances
             }
             else
             {
-                global::Fiber.Tools.Logger.LogError("CORE.Instance", "The instance id " + ID + " is not type of: \"" + typeof(T).ToString() + "\"");
+                Tools.Logger.LogError("CORE.Instance", "The instance id " + ID + " is not type of: \"" + typeof(T).ToString() + "\"");
 
                 return null;
             }

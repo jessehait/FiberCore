@@ -2,7 +2,9 @@
 using UnityEngine;
 using System.Threading.Tasks;
 using Fiber.Core;
-using System.Runtime.CompilerServices;
+using System.IO;
+using UnityEditor;
+using System.Collections;
 
 namespace Fiber
 {
@@ -43,12 +45,13 @@ namespace Fiber
                 API        = fiberCore;
                 Conditions = fiberCore;
 
-                GameObject.DontDestroyOnLoad(coreObject);
+                DontDestroyOnLoad(coreObject);
             }
         }
 
         private void InitializeMono()
         {
+            if(!gameObject.TryGetComponent(out CoroutineHandler handler))
             CoroutineHandler = gameObject.AddComponent<CoroutineHandler>();
         }
 
@@ -68,53 +71,87 @@ namespace Fiber
             AppPath      = Application.dataPath;
             AppDataPath  = Application.persistentDataPath;
             AppName      = Application.productName;
-            ResourceList = (UnityEngine.Resources.Load("ResourcesInfo", typeof(TextAsset)) as TextAsset).text;
         }
 
 
-        public async void InitializeAsync(FiberCoreConfig config, Action onInitialized)
+        private void ChechResourceList()
         {
-            FillApplicationData();
+            #if UNITY_EDITOR
+            var path = AppPath + "/Resources";
 
-            Configurations = config;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
 
+            if(!File.Exists(path + "/ResourcesInfo.txt"))
+            {
+                using (FileStream fs = File.Create(path + "/ResourcesInfo.txt"))
+                {
+                    fs.Flush();
+                    fs.Close();
+                }
+            }
+            #endif
+        }
+
+        private void RefreshResources()
+        {
+            #if UNITY_EDITOR
+            if (Configurations.AutoUpdateResourceList)
+            {
+                Editor.FiberCore_BuildPreprocess.UpdateResources(AppPath);
+            }
+            #endif
+        }
+
+        private void GetResourceList()
+        {
+            ResourceList = (UnityEngine.Resources.Load("ResourcesInfo", typeof(TextAsset)) as TextAsset).text;
+        }
+
+        public void InitializeAsync(FiberCoreConfig config, Action onInitialized)
+        {
+            StartCoroutine(Async());
+
+            IEnumerator Async()
+            {
+                yield return null;
+                if (!IsInitialized)
+                {
+                    Initialize(config);
+                    onInitialized?.Invoke();
+                }
+                else
+                {
+                    Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                }
+            }
+        }
+
+        public void Initialize(FiberCoreConfig config)
+        {
             if (!IsInitialized)
             {
-                await Task.Run(() =>
-                {
-                    InitializeManagers();
-                    IsInitialized = true;
-                    global::Fiber.Tools.Logger.Log("CORE", "Initialization success.");
-                });
+                Configurations = config;
 
-                onInitialized?.Invoke();
+                FillApplicationData();
+                ChechResourceList();
+                RefreshResources();
+                GetResourceList();
+                InitializeManagers();
+                InitializeMono();
+
+                IsInitialized = true;
+
+                AssetDatabase.Refresh();
+
+                Tools.Logger.Log("CORE", "Initialization success.");
             }
             else
             {
                 Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
-
-            InitializeMono();
-        }
-
-        public void Initialize(FiberCoreConfig config)
-        {
-            try
-            {
-                Configurations = config;
-
-                FillApplicationData();
-                InitializeManagers();
-                IsInitialized = true;
-                global::Fiber.Tools.Logger.Log("CORE", "Initialization success.");
-            }
-            catch (Exception)
-            {
-
-                Tools.Logger.LogWarning("CORE", "Core is already initialized.");
-            }
-
-            InitializeMono();
         }
     }
 }

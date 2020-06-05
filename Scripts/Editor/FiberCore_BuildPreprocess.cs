@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -9,7 +8,7 @@ using UnityEngine;
 
 namespace Fiber.Editor
 {
-    class FiberCore_BuildPreprocess : IPreprocessBuildWithReport
+    public class FiberCore_BuildPreprocess : IPreprocessBuildWithReport
     {
         public int callbackOrder { get { return 0; } }
 
@@ -41,9 +40,16 @@ namespace Fiber.Editor
 
 
         [MenuItem("Fiber/FiberCore/Update Resources")]
-        public static void UpdateResources()
+        public static void Update()
         {
-            var path = Application.dataPath + "/Resources";
+            UpdateResources(Application.dataPath);
+            AssetDatabase.Refresh();
+        }
+
+       
+        public static void UpdateResources(string dataPath)
+        {
+            var path = dataPath + "/Resources";
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
@@ -85,7 +91,7 @@ namespace Fiber.Editor
             }
 
 
-            using (StreamWriter sw = File.AppendText(Application.dataPath + "/Resources/ResourcesInfo.txt"))
+            using (StreamWriter sw = File.AppendText(dataPath + "/Resources/ResourcesInfo.txt"))
             {
                 foreach (var item in resources)
                 {
@@ -94,15 +100,14 @@ namespace Fiber.Editor
                 }
             }
 
-            AssetDatabase.Refresh();
+
 
             Debug.Log("<color=orange><b>[CORE.BUILD]: </b></color>Resource list compilled successfully");
         }
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            UpdateResources();
+            Update();
         }
     }
 }
-#endif

@@ -34,12 +34,12 @@ namespace Fiber.Core
                   
                     instance.Initialize(id);
                     _activeInstance = instance;
-                    OnInstanceChanged.Invoke(instance);
+                    OnInstanceChanged?.Invoke(instance);
                     onComplete?.Invoke(instance);
                 }
                 else
                 {
-                    global::Fiber.Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + id + " does not contains controller. Plaase add \"Instance\" component to the scene of your instance.");
+                    Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + id + " does not contains controller. Plaase add \"Instance\" component to the scene of your instance.");
                 }
             };
         }
@@ -52,7 +52,7 @@ namespace Fiber.Core
             if(id.HasValue)
                 LoadInstance(id.Value, onComplete, method);
             else
-                global::Fiber.Tools.Logger.LogError("CORE.InstanceManager", "The instance named \"" + name + "\" not found. Make sure u entered correct name and acene added to build settings.");
+                Tools.Logger.LogError("CORE.InstanceManager", "The instance named \"" + name + "\" not found. Make sure u entered correct name and acene added to build settings.");
         }
 
         public void UnloadActiveInstance(Action onComplete = null)
@@ -64,7 +64,7 @@ namespace Fiber.Core
             unloading.completed += (x) =>
             {
                 _activeInstance = null;
-                OnInstanceChanged.Invoke(null);
+                OnInstanceChanged?.Invoke(null);
                 onComplete?.Invoke();
             };
         }
@@ -73,13 +73,13 @@ namespace Fiber.Core
         {
             if (_activeInstance is T instance)
             {
-                global::Fiber.Tools.Logger.Log("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " of type: \"" + typeof(T).ToString() + "\"  was found.");
+                Tools.Logger.Log("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " of type: \"" + typeof(T).ToString() + "\"  was found.");
 
                 return instance;
             }
             else
             {
-                global::Fiber.Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " does not contains controller of type: \"" + typeof(T).ToString() + "\"");
+                Tools.Logger.LogError("CORE.InstanceManager", "The instance id " + _activeInstance.ID + " does not contains controller of type: \"" + typeof(T).ToString() + "\"");
 
                 return null;
             }

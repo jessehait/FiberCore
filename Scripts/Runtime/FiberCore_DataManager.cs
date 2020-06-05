@@ -197,50 +197,6 @@ namespace Fiber.Core
                 System.IO.File.WriteAllText(_path + _data.FileName, stringData, System.Text.Encoding.ASCII);
             }
         }
-        
-        //private void SaveToRegistry(string name = "", DataSaveMethod method = DataSaveMethod.Overwrite)
-        //{
-        //    var stringData = JsonUtility.ToJson(_data);
-        //    //CheckDirectory();
-
-        //    //if (!System.IO.Directory.Exists(_path))
-        //    //    System.IO.Directory.CreateDirectory(_path);
-
-        //    if (method == DataSaveMethod.AsNew)
-        //    {
-        //        var dt = DateTime.Now;
-        //        var date = dt.ToShortDateString();
-        //        var time = dt.ToString(@"hh\.mm\.ss");
-        //        var saveFormat = date + "_" + time;
-
-        //        if (name == "")
-        //        {
-        //            name = "Auto_" + saveFormat;
-        //        }
-        //       // name += ".save";
-
-        //        _data.Create(name, dt);
-
-        //        stringData = JsonUtility.ToJson(_data);
-
-        //        PlayerPrefs.SetString(name, stringData);
-
-        //       // System.IO.File.WriteAllText(_path + name, stringData, System.Text.Encoding.ASCII);
-        //    }
-        //    else
-        //    {
-        //        if (_data.FileName == "")
-        //        {
-        //            SaveToRegistry(name, DataSaveMethod.AsNew);
-        //            return;
-        //        }
-
-        //        _data.Modify(DateTime.Now);
-
-        //        PlayerPrefs.SetString(name, stringData);
-        //        //System.IO.File.WriteAllText(_path + _data.FileName, stringData, System.Text.Encoding.ASCII);
-        //    }
-        //}
     }
 }
 
