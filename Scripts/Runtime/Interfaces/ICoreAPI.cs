@@ -44,12 +44,14 @@ namespace Fiber.Core
         /// <summary>
         /// Entry point, should be loaded at Awake method of your main script e.g. "GameManager"
         /// </summary>
-        void Initialize();
+        /// <param name="config"></param>
+        void Initialize(FiberCoreConfig config);
 
         /// <summary>
         /// Async Entry point, should be loaded at Awake method of your main script e.g. "GameManager"
         /// </summary>
         /// <param name="onInitialized"></param>
-        void InitializeAsync(Action onInitialized);
+        /// <param name="config"></param>
+        void InitializeAsync(FiberCoreConfig config,Action onInitialized);
     }
 }

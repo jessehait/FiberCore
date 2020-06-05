@@ -2,46 +2,53 @@
 using UnityEngine;
 using System.Threading.Tasks;
 using Fiber.Core;
+using System.Runtime.CompilerServices;
 
 namespace Fiber
 {
     public sealed class FiberCore : MonoBehaviour, ICoreAPI, ICoreConditions
     {
-        [SerializeField]
-        private FiberCoreConfig _configurations;
-
         #region API
-        public static ICoreAPI     API;               // API Instance
-        public IInstanceManager    Instances          { get; private set; }
-        public IDelayManager       Delays             { get; private set; }
-        public IUIManager          UI                 { get; private set; }
-        public IDataManager        FileData           { get; private set; }
-        public IRegistryManager    Registry           { get; private set; }
-        public IAudioManager       Audio              { get; private set; }
-        public IResourceManager    Resources          { get; private set; }
-        public ICoroutineHandler   CoroutineHandler   { get; private set; }
-        public FiberCoreConfig     Configurations      => _configurations;
+        public static ICoreAPI        API;
+        public IInstanceManager       Instances        { get; private set; }
+        public IDelayManager          Delays           { get; private set; }
+        public IUIManager             UI               { get; private set; }
+        public IDataManager           FileData         { get; private set; }
+        public IRegistryManager       Registry         { get; private set; }
+        public IAudioManager          Audio            { get; private set; }
+        public IResourceManager       Resources        { get; private set; }
+        public ICoroutineHandler      CoroutineHandler { get; private set; }
+        public FiberCoreConfig        Configurations   { get; private set; }
         #endregion
+
 
         #region CONDITIONS
         public static ICoreConditions Conditions;
-        public bool IsInitialized                     { get; private set; }
+        public bool                   IsInitialized    { get; private set; }
         #endregion
 
-        internal static string AppPath      { get; private set; }
-        internal static string AppDataPath  { get; private set; }
-        internal static string AppName      { get; private set; }
-        internal static string ResourceList      { get; private set; }
 
-        private FiberCore()
+        internal static string        AppPath          { get; private set; }
+        internal static string        AppDataPath      { get; private set; }
+        internal static string        AppName          { get; private set; }
+        internal static string        ResourceList     { get; private set; }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void Create()
         {
-            API           = this;
-            Conditions    = this;
+            if (API == null)
+            {
+                var coreObject = new GameObject("[FiberCore]");
+                var fiberCore  = coreObject.AddComponent<FiberCore>();
+                API        = fiberCore;
+                Conditions = fiberCore;
+
+                GameObject.DontDestroyOnLoad(coreObject);
+            }
         }
-   
-        void Awake()
+
+        private void InitializeMono()
         {
-            DontDestroyOnLoad(this);
             CoroutineHandler = gameObject.AddComponent<CoroutineHandler>();
         }
 
@@ -65,9 +72,11 @@ namespace Fiber
         }
 
 
-        public async void InitializeAsync(Action onInitialized)
+        public async void InitializeAsync(FiberCoreConfig config, Action onInitialized)
         {
             FillApplicationData();
+
+            Configurations = config;
 
             if (!IsInitialized)
             {
@@ -82,14 +91,18 @@ namespace Fiber
             }
             else
             {
-                global::Fiber.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
+
+            InitializeMono();
         }
 
-        public void Initialize()
+        public void Initialize(FiberCoreConfig config)
         {
             try
             {
+                Configurations = config;
+
                 FillApplicationData();
                 InitializeManagers();
                 IsInitialized = true;
@@ -98,8 +111,10 @@ namespace Fiber
             catch (Exception)
             {
 
-                global::Fiber.Tools.Logger.LogWarning("CORE", "Core is already initialized.");
+                Tools.Logger.LogWarning("CORE", "Core is already initialized.");
             }
+
+            InitializeMono();
         }
     }
 }
