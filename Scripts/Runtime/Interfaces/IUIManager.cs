@@ -32,6 +32,7 @@ namespace Fiber.Core
         /// <param name="key">Screen key</param>
         /// <returns>Casted screen</returns>
         T GetScreen<T>(string key) where T : UIScreen;
+        T GetScreen<T>();
 
         /// <summary>
         /// Register new screen instead of existing one

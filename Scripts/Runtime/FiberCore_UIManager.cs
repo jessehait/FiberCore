@@ -1,5 +1,6 @@
 ﻿using Fiber.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fiber.Core
 {
@@ -35,6 +36,18 @@ namespace Fiber.Core
             }
         }
 
+        public T GetScreen<T>()
+        {
+            var screen = _allScreens.Where(x => x.Value.GetType() == typeof(T)).FirstOrDefault().Value;
+
+            if (screen && screen is T scr)
+                return scr;
+
+
+            Tools.Logger.LogError("CORE.UIManager", "Screen of type" + typeof(T).ToString() + "\" not found");
+            return default;
+
+        }
 
         public UIScreen GetScreen(string key)
         {
