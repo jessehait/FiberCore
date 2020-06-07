@@ -1,6 +1,6 @@
 {
   "name": "com.fiber.fibercore",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "displayName": "FiberCore",
   "description": "FiberCore is a lightweight framework for fastest game development, it contains managers that help you to work with game data, resources, UI, audio, etc.",
   "keywords": [
@@ -16,5 +16,8 @@
   "author": {
     "name": "Rasim Hait",
     "email": "pc.sinner@gmail.com"
+  },
+  "publishConfig": { 
+    "registry": "https://npm.pkg.github.com/" 
   }
 }
