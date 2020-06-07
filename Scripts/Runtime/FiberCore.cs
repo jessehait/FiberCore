@@ -17,6 +17,7 @@ namespace Fiber
         public IUIManager             UI               { get; private set; }
         public IDataManager           FileData         { get; private set; }
         public IRegistryManager       Registry         { get; private set; }
+        public IMessageManager        Message          { get; private set; }
         public IAudioManager          Audio            { get; private set; }
         public IResourceManager       Resources        { get; private set; }
         public ICoroutineHandler      CoroutineHandler { get; private set; }
@@ -64,6 +65,7 @@ namespace Fiber
             Registry           = new FiberCore_RegistryManager();
             Audio              = new FiberCore_AudioManager();
             Resources          = new FiberCore_ResourceManager();
+            Message            = new FiberCore_MessageManager();
         }
 
         private void FillApplicationData()
@@ -72,7 +74,6 @@ namespace Fiber
             AppDataPath  = Application.persistentDataPath;
             AppName      = Application.productName;
         }
-
 
         private void ChechResourceList()
         {

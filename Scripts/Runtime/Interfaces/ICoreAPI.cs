@@ -36,11 +36,17 @@ namespace Fiber.Core
         /// Mono-helper for running coroutines outside tha mono-classes
         /// </summary>
         ICoroutineHandler   CoroutineHandler   { get; }
+
+        /// <summary>
+        /// Message system
+        /// </summary>
+        IMessageManager     Message { get; }
+
         /// <summary>
         /// Active core configuration file (SO)
         /// </summary>
         FiberCoreConfig     Configurations     { get; }
-
+    
         /// <summary>
         /// Entry point, should be loaded at Awake method of your main script e.g. "GameManager"
         /// </summary>

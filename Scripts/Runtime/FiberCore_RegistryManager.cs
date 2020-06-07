@@ -44,6 +44,8 @@ namespace Fiber.Core
 
         public void Save(string name = DEFAULT_NAME)
         {
+            OnSaveRequested?.Invoke();
+
             if (_data != null)
             {
                 _data.Modify(DateTime.Now);
@@ -69,6 +71,7 @@ namespace Fiber.Core
         {
             if (PlayerPrefs.HasKey(name))
             {
+                OnLoadRequested?.Invoke();
                 JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString(name), _data);
             }
         }
