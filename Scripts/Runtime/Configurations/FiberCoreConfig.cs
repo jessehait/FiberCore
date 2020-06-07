@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Fiber.Core
+namespace Fiber
 {
     [CreateAssetMenu(fileName ="FiberCore Config",menuName ="Fiber/FiberCore/Config")]
     public class FiberCoreConfig : ScriptableObject

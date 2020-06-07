@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Fiber.AudioManagement
+namespace Fiber.Audio
 {
     public sealed class AudioClipConfig 
     {

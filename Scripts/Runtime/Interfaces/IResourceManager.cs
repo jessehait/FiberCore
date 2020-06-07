@@ -1,4 +1,4 @@
-﻿using Fiber.ResourceManagement;
+﻿using Fiber.Resources;
 using System;
 
 namespace Fiber.Core

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Fiber.ResourceManagement
+namespace Fiber.Resources
 {
     public class Resource
     {
@@ -20,16 +20,14 @@ namespace Fiber.ResourceManagement
         public Resource(string path)
         {
             path       = path.Trim();
-
             _path      = path.Split('/').ToList();
-            _directory = path.Split('/').ToList();
-            _directory.Remove(_directory.LastOrDefault());
+            _directory.Remove(_path.LastOrDefault());
             _object    = null;
         }
 
         internal bool Load<T>() where T : Object
         {
-            _object = Resources.Load<T>(GetPath());
+            _object = UnityEngine.Resources.Load<T>(GetPath());
 
             return IsLoaded();
         }

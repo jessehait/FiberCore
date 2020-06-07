@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Fiber.MessageManagement
+namespace Fiber.Message
 {
     public class FiberMessageObserver : IDisposable
     {
         private Type                       _type;
         private List<FiberMessageObserver> _list;
-        private Action<object>             _action;
+        private event Action<object>       _action;
 
         internal FiberMessageObserver Create<T>(Action<T> action, Type type, ref List<FiberMessageObserver> list)
         {
