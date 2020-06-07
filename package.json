@@ -16,5 +16,8 @@
   "author": {
     "name": "Rasim Hait",
     "email": "pc.sinner@gmail.com"
+  },
+  "publishConfig": { 
+    "registry": "https://npm.pkg.github.com/" 
   }
 }
