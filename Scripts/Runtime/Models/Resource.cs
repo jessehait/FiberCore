@@ -19,9 +19,10 @@ namespace Fiber.Resources
 
         public Resource(string path)
         {
-            path       = path.Trim();
+             path      = path.Trim();
             _path      = path.Split('/').ToList();
-            _directory.Remove(_path.LastOrDefault());
+            _directory = _path;
+            _directory.Remove(_directory.LastOrDefault());
             _object    = null;
         }
 
