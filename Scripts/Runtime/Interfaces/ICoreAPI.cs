@@ -21,7 +21,7 @@
         /// <summary>
         /// Data save/load controller using registry (Cross-platform)
         /// </summary>
-        IRegistryManager    Registry           { get; }
+        IRegistryManager    PrefData           { get; }
         /// <summary>
         /// Main audio sources controller
         /// </summary>

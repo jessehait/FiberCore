@@ -14,7 +14,7 @@ namespace Fiber
         public IDelayManager          Delays           { get; private set; }
         public IUIManager             UI               { get; private set; }
         public IDataManager           FileData         { get; private set; }
-        public IRegistryManager       Registry         { get; private set; }
+        public IRegistryManager       PrefData         { get; private set; }
         public IMessageManager        Message          { get; private set; }
         public IAudioManager          Audio            { get; private set; }
         public IResourceManager       Resources        { get; private set; }
