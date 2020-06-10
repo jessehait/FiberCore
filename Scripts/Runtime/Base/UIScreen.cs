@@ -15,7 +15,7 @@ namespace Fiber.UI
         {
             Enabled = ShownByDefault;
 
-            FiberCore.API.UI.AddScreen(Key, this);
+            FiberCore.UI.AddScreen(Key, this);
             OnReady();
         }
 

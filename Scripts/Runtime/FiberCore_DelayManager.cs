@@ -9,7 +9,7 @@ namespace Fiber.Core
 
         public void WaitSeconds(float seconds, Action onComplete)
         {
-            FiberCore.API.CoroutineHandler.StartCoroutine(Routine());
+            FiberCore.CoroutineHandler.StartCoroutine(Routine());
 
             IEnumerator Routine()
             {
@@ -21,7 +21,7 @@ namespace Fiber.Core
 
         public void WaitUntil(Func<bool> condition, Action onComplete)
         {
-            FiberCore.API.CoroutineHandler.StartCoroutine(Routine());
+            FiberCore.CoroutineHandler.StartCoroutine(Routine());
 
             IEnumerator Routine()
             {

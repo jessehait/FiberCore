@@ -18,7 +18,7 @@ namespace Fiber
         public static IAudioManager     Audio            { get; private set; }
         public static IResourceManager  Resources        { get; private set; }
         public static ICoroutineHandler CoroutineHandler { get; private set; }
-        public FiberCoreSettings        Configurations   { get; internal set; }
+        public static FiberCoreSettings Configurations   { get; internal set; }
         #endregion
 
         internal static bool            IsInitialized    { get; private set; }
@@ -35,7 +35,7 @@ namespace Fiber
                 var coreObject = new GameObject("[FiberCore]");
                 var fiberCore  = coreObject.AddComponent<FiberCore>();
 
-                fiberCore.Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
+                Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
 
                 fiberCore.Initialize();
 

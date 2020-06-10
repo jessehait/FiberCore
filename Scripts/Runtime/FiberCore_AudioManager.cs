@@ -42,7 +42,7 @@ namespace Fiber.Core
 
             if(playConfig.destroySource)
             {
-                FiberCore.API.CoroutineHandler.StartCoroutine(DestroySource(source));
+                FiberCore.CoroutineHandler.StartCoroutine(DestroySource(source));
             }
       
             return source;
