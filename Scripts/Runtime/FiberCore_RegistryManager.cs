@@ -1,8 +1,5 @@
 ﻿using Fiber.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -16,12 +13,12 @@ namespace Fiber.Core
         public event Action OnSaveRequested;
         public event Action OnLoadRequested;
 
-        public void Initialize<T>() where T : BasicData, new()
+        public void RegisterType<T>() where T : BasicData, new()
         {
             Reset<T>();
         }
 
-        public bool GetSaveData<T>(out T data) where T : BasicData
+        public bool GetData<T>(out T data) where T : BasicData
         {
             try
             {
@@ -34,10 +31,9 @@ namespace Fiber.Core
                 data = null;
                 return false;
             }
-
         }
 
-        public T GetSaveData<T>() where T : BasicData
+        public T GetData<T>() where T : BasicData
         {
             return _data as T;
         }
@@ -88,7 +84,7 @@ namespace Fiber.Core
 
         public void Reset<T>() where T : BasicData, new()
         {
-            _data = new T() as BasicData;
+            _data = new T();
         }
     }
 }

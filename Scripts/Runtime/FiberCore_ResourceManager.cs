@@ -23,11 +23,9 @@ namespace Fiber.Core
 
         private void GenerateResourcesList()
         {
-          
-
             if (FiberCore.ResourceList == null)
             {
-                Logger.LogError("CORE.RESOURCES", "There is no ResourcesInfo found, please, use RHCore > Generate Resource List");
+                Logger.LogError("CORE.RESOURCES", "There is no ResourcesInfo found, please, use Fiber > FiberCore > Generate Resource List");
                 return;
             }
             

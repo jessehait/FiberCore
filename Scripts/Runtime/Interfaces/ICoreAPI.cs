@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Fiber.Core
+﻿namespace Fiber.Core
 {
     public interface ICoreAPI
     {
@@ -45,19 +43,7 @@ namespace Fiber.Core
         /// <summary>
         /// Active core configuration file (SO)
         /// </summary>
-        FiberCoreConfig     Configurations     { get; }
-    
-        /// <summary>
-        /// Entry point, should be loaded at Awake method of your main script e.g. "GameManager"
-        /// </summary>
-        /// <param name="config"></param>
-        void Initialize(FiberCoreConfig config);
+        FiberCoreSettings   Configurations     { get; }
 
-        /// <summary>
-        /// Async Entry point, should be loaded at Awake method of your main script e.g. "GameManager"
-        /// </summary>
-        /// <param name="onInitialized"></param>
-        /// <param name="config"></param>
-        void InitializeAsync(FiberCoreConfig config,Action onInitialized);
     }
 }

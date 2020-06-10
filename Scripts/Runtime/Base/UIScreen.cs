@@ -1,8 +1,4 @@
-﻿using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Reflection;
-using System.Collections;
+﻿using UnityEngine;
 
 namespace Fiber.UI
 {
@@ -19,14 +15,8 @@ namespace Fiber.UI
         {
             Enabled = ShownByDefault;
 
-            StartCoroutine(InitChecker());
-
-            IEnumerator InitChecker()
-            {
-                yield return new WaitUntil(() => FiberCore.Conditions.IsInitialized);
-                FiberCore.API.UI.AddScreen(Key, this);
-                OnReady();
-            }
+            FiberCore.API.UI.AddScreen(Key, this);
+            OnReady();
         }
 
         public bool Enabled

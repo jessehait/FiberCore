@@ -19,7 +19,7 @@ namespace Fiber.Core
         /// Register your data type
         /// </summary>
         /// <typeparam name="T">Data type</typeparam>
-        void Initialize<T>() where T : BasicData, new();
+        void RegisterType<T>() where T : BasicData, new();
 
         /// <summary>
         /// Try to get saver data of your type
@@ -27,14 +27,14 @@ namespace Fiber.Core
         /// <typeparam name="T">Data type</typeparam>
         /// <param name="data">Data reference</param>
         /// <returns>Success</returns>
-        bool GetSaveData<T>(out T data) where T : BasicData;
+        bool GetData<T>(out T data) where T : BasicData;
 
         /// <summary>
         /// Returns data of initialized type
         /// </summary>
         /// <typeparam name="T">Data type</typeparam>
         /// <returns>Data</returns>
-        T GetSaveData<T>() where T : BasicData;
+        T GetData<T>() where T : BasicData;
 
         /// <summary>
         /// Get list of saved data files

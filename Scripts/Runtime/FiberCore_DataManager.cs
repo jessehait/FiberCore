@@ -22,12 +22,12 @@ namespace Fiber.Core
                 Directory.CreateDirectory(_path);
         }
 
-        public void Initialize<T>() where T: BasicData, new()
+        public void RegisterType<T>() where T: BasicData, new()
         {
             Reset<T>();
         }
 
-        public bool GetSaveData<T>(out T data) where T : BasicData
+        public bool GetData<T>(out T data) where T : BasicData
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Fiber.Core
            
         }
 
-        public T GetSaveData<T>() where T : BasicData
+        public T GetData<T>() where T : BasicData
         {
             return _data as T;
         }

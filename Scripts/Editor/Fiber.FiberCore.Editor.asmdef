@@ -1,6 +1,8 @@
 {
     "name": "Fiber.FiberCore.Editor",
-    "references": [],
+    "references": [
+        "GUID:fce2c45ad8d89fe47845d0557c32a229"
+    ],
     "includePlatforms": [
         "Editor"
     ],

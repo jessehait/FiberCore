@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Object = UnityEngine.Object;
 
 namespace Fiber.Message
@@ -14,8 +15,8 @@ namespace Fiber.Message
         internal FiberMessageObserver Create<T>(Action<T> action, Type type, ref List<FiberMessageObserver> list)
         {
             _action = new Action<object>(x => action((T)x));
-            _type = type;
-            _list = list;
+            _type   = type;
+            _list   = list;
 
             return this;
         }
