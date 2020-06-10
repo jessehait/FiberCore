@@ -1,6 +1,6 @@
 {
   "name": "com.fiber.fibercore",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "displayName": "FiberCore",
   "description": "FiberCore is a lightweight framework for fastest game development, it contains managers that help you to work with game data, resources, UI, audio, etc.",
   "keywords": [

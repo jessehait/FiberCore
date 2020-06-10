@@ -4,9 +4,9 @@ namespace Fiber.UI
 {
     public abstract class UIScreen: MonoBehaviour
     {
-        public bool                         ShownByDefault =   true;
-        public RectTransform                Content;
-        public string                       Key;
+        public bool          ShownByDefault = true;
+        public RectTransform Content;
+        public string        Key;
 
         /// <summary>
         /// CALL BASE OR DO NOT OVERRIDE!!
