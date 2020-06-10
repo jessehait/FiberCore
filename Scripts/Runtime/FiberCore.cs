@@ -6,50 +6,42 @@ using UnityEditor;
 
 namespace Fiber
 {
-    public sealed class FiberCore : MonoBehaviour, ICoreAPI, ICoreConditions
+    public sealed class FiberCore : MonoBehaviour
     {
         #region API
-        public static ICoreAPI        API;
-        public IInstanceManager       Instances        { get; private set; }
-        public IDelayManager          Delays           { get; private set; }
-        public IUIManager             UI               { get; private set; }
-        public IDataManager           FileData         { get; private set; }
-        public IRegistryManager       PrefData         { get; private set; }
-        public IMessageManager        Message          { get; private set; }
-        public IAudioManager          Audio            { get; private set; }
-        public IResourceManager       Resources        { get; private set; }
-        public ICoroutineHandler      CoroutineHandler { get; private set; }
-        public FiberCoreSettings      Configurations   { get; internal set; }
+        public static IInstanceManager  Instances        { get; private set; }
+        public static IDelayManager     Delays           { get; private set; }
+        public static IUIManager        UI               { get; private set; }
+        public static IDataManager      FileData         { get; private set; }
+        public static IRegistryManager  PrefData         { get; private set; }
+        public static IMessageManager   Message          { get; private set; }
+        public static IAudioManager     Audio            { get; private set; }
+        public static IResourceManager  Resources        { get; private set; }
+        public static ICoroutineHandler CoroutineHandler { get; private set; }
+        public FiberCoreSettings        Configurations   { get; internal set; }
         #endregion
 
-
-        #region CONDITIONS
-        public static ICoreConditions Conditions;
-        public bool                   IsInitialized    { get; private set; }
-        #endregion
-
-
-        internal static string        AppPath          { get; private set; }
-        internal static string        AppDataPath      { get; private set; }
-        internal static string        AppName          { get; private set; }
-        internal static string        ResourceList     { get; private set; }
+        internal static bool            IsInitialized    { get; private set; }
+        internal static string          AppPath          { get; private set; }
+        internal static string          AppDataPath      { get; private set; }
+        internal static string          AppName          { get; private set; }
+        internal static string          ResourceList     { get; private set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void Create()
         {
-            if (API == null)
+            if (!IsInitialized)
             {
                 var coreObject = new GameObject("[FiberCore]");
                 var fiberCore  = coreObject.AddComponent<FiberCore>();
-
-                API        = fiberCore;
-                Conditions = fiberCore;
 
                 fiberCore.Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
 
                 fiberCore.Initialize();
 
                 DontDestroyOnLoad(coreObject);
+
+                IsInitialized = true;
             }
         }
 
@@ -65,7 +57,7 @@ namespace Fiber
             Delays             = new FiberCore_DelayManager();
             UI                 = new FiberCore_UIManager();
             FileData           = new FiberCore_DataManager();
-            Registry           = new FiberCore_RegistryManager();
+            PrefData           = new FiberCore_RegistryManager();
             Audio              = new FiberCore_AudioManager();
             Resources          = new FiberCore_ResourceManager();
             Message            = new FiberCore_MessageManager();
