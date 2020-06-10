@@ -7,6 +7,5 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/jessehait/FiberCore?style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/jessehait/FiberCore?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/jessehait/FiberCore?style=for-the-badge)
-![GitHub](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
 
