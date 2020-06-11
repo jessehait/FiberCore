@@ -68,9 +68,7 @@ public class ExampleData: BasicData
 ```cs
 public class GameUI : UIScreen
 {
-    protected override void OnReady()
-    {
-    }
+
 }
 ```
 ***
