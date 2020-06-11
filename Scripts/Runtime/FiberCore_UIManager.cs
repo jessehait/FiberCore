@@ -1,6 +1,7 @@
 ﻿using Fiber.UI;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Fiber.Core
 {
@@ -9,6 +10,23 @@ namespace Fiber.Core
         private Dictionary<string, UIScreen> _allScreens = new Dictionary<string, UIScreen>();
 
         public bool ContainsScreen(string key) => _allScreens.ContainsKey(key.ToUpper());
+
+        public FiberCore_UIManager()
+        {
+            FindScreens();
+        }
+
+        private void FindScreens()
+        {
+            var screens = Object.FindObjectsOfType<UIScreen>();
+
+            for (int i = 0; i < screens.Length; i++)
+            {
+                var screen = screens[i];
+                screen.Enabled = screen.ShownByDefault;
+                AddScreen(screen.Key, screen);
+            }
+        }
 
         public void AddScreen(string key, UIScreen screen)
         {
@@ -27,7 +45,7 @@ namespace Fiber.Core
 
             if (!_allScreens.ContainsKey(key))
             {
-                global::Fiber.Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
+                Tools.Logger.LogWarning("CORE.UIManager", "Screen with key \"" + key + "\" not found. Use <b>AddScreen</b> instead.");
             }
             else
             {
@@ -59,7 +77,7 @@ namespace Fiber.Core
             }
             else
             {
-                global::Fiber.Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
+                Tools.Logger.LogError("CORE.UIManager", "Screen with key \"" + key + "\" not found");
                 return null;
             }
         }
@@ -74,7 +92,7 @@ namespace Fiber.Core
                 if(screen is T tmp)
                     return tmp;
                 else
-                    global::Fiber.Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
+                    Tools.Logger.LogError("CORE.UIManager", "UIScreen with key \"" + key + "\" is not type of: \"" + typeof(T).ToString() + "\"");
             }
             return null;
         }

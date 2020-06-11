@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Fiber.Core;
+using UnityEditor.XR;
+using UnityEngine;
 
 namespace Fiber.UI
 {
@@ -7,17 +9,6 @@ namespace Fiber.UI
         public bool          ShownByDefault = true;
         public RectTransform Content;
         public string        Key;
-
-        /// <summary>
-        /// CALL BASE OR DO NOT OVERRIDE!!
-        /// </summary>
-        protected virtual void Awake()
-        {
-            Enabled = ShownByDefault;
-
-            FiberCore.UI.AddScreen(Key, this);
-            OnReady();
-        }
 
         public bool Enabled
         {
@@ -42,11 +33,12 @@ namespace Fiber.UI
 
         public virtual void Toggle()
         {
-            Enabled = !Enabled;
-
-            if (Enabled) Show(); else Hide();
+            Toggle(!Enabled);
         }
 
-        protected abstract void OnReady();
+        public virtual void Toggle(bool value)
+        {
+            if (value) Show(); else Hide();
+        }
     }
 }
