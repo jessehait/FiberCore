@@ -1,26 +1,13 @@
 on: [push]
-name: Publish Package
 jobs:
-  release:
-    name: Publish Package
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Use this GitHub Action
-      - name: Check package version
-        uses: technote-space/package-version-check-action@v1
+      - uses: actions/setup-node@master
         with:
-          COMMIT_DISABLED: 1
-
-      - name: Install Package dependencies
-        run: yarn install
-      - name: Build
-        run: yarn build
-      - name: Publish
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=$NPM__TOKEN
-          npm publish
+          version: 12
+          registry-url: 'https://registry.npmjs.org'
+      - uses: shawnbot/npm-publish-action@master
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM__TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
