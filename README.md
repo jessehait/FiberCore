@@ -15,6 +15,8 @@ FiberCore it's a lightweight game core that allows you to use **Data Management,
 Here is small example of game (without gameplay logic) developed using FiberCore.
 
 ***
+First of all, install package using this guide: <a href="https://github.com/jessehait/FiberCore/wiki/0.-Get-Started"> **Get Started** </a> 
+***
 
 ### Game Loader Example
 
