@@ -1,15 +1,29 @@
-name: NPM Publish
-on: [push]
+on:
+ push:
+   tags:
+     - 'v*'
+name: Publish Package
 jobs:
-  publish:
+  release:
+    name: Publish Package
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Use this GitHub Action
+      - name: Check package version
+        uses: technote-space/package-version-check-action@v1
         with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: yarn
-      - run: yarn publish
+          COMMIT_DISABLED: 1
+
+      - name: Install Package dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NPM__TOKEN
+          npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM__TOKEN }}
