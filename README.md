@@ -19,31 +19,18 @@ Here is small example of game (without gameplay logic) developed using FiberCore
 ### Game Loader Example
 
 ```cs
-public class GameManager : MonoBehaviour
+public class ExampleGameLoader : MonoBehaviour
 {
     private ExampleData gameData;
 
     private void Awake()
     {
-        Bind();
-        LoadData();
-        LoadGame();
-    }
-
-    private void Bind()
-    {
         FiberCore.Instances.OnInstanceChanged += OnInstanceChanged;
-    }
-
-    private void LoadData()
-    {
+        
         FiberCore.PrefData.RegisterType<ExampleData>();
         FiberCore.PrefData.Load();
         FiberCore.PrefData.GetData(out gameData);
-    }
-
-    private void LoadGame()
-    {
+        
         FiberCore.Instances.LoadInstance(gameData.NextLevelID);
     }
 
@@ -52,7 +39,7 @@ public class GameManager : MonoBehaviour
         if (obj)
         {
             FiberCore.UI.GetScreen<GameUI>().Show();
-
+            
             obj.As<ExampleLevel>().Example_Start();
         }
         else
@@ -67,7 +54,6 @@ public class GameManager : MonoBehaviour
 ### Game Data Example
 
 ```cs
-[Serializable]
 public class ExampleData: BasicData
 {
     public int NextLevelID = 1;
@@ -102,20 +88,11 @@ public class ExampleLevel : Instance
     protected override void OnReady()
     {
         FiberCore.Audio.SetListener(audioListener);
-        LoadResources();
-    }
-
-    protected override void OnUnload()
-    {
-        UnloadResources();
-    }
-
-    private void LoadResources()
-    {
+        
         FiberCore.Resources.Load<GameObject>(res_playerPath);
     }
 
-    private void UnloadResources()
+    protected override void OnUnload()
     {
         FiberCore.Resources.Unload(res_playerPath);
     }
