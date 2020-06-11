@@ -7,8 +7,8 @@
         <img src="https://img.shields.io/github/commit-activity/m/jessehait/FiberCore?style=for-the-badge" /></a>
     <a href="https://github.com/jessehait/FiberCore/commits/master" alt="Last Commit">
         <img src="https://img.shields.io/github/last-commit/jessehait/FiberCore?style=for-the-badge" /></a>
-        <img src="https://img.shields.io/github/languages/top/jessehait/FiberCore?style=for-the-badge" />
         <img src="https://img.shields.io/github/repo-size/jessehait/FiberCore?style=for-the-badge" />
+        <img src="https://img.shields.io/npm/dt/com.fiber.fibercore?style=for-the-badge" />
 </p>
 
 FiberCore it's a lightweight game core that allows you to use **Data Management, UI Management, Scene Management** etc.
