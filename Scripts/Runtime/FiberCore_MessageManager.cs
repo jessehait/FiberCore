@@ -7,7 +7,7 @@ namespace Fiber.Core
 {
     public class FiberCore_MessageManager: IMessageManager
     {
-        private List<FiberMessageObserver> _list = new List<FiberMessageObserver>();
+        private List<FiberMessage> _list = new List<FiberMessage>();
 
         public void Publish<T>(T message)
         {
@@ -22,11 +22,33 @@ namespace Fiber.Core
 
         public IDisposable Receive<T>(Action<T> onExecute)
         {
-            var bind = new FiberMessageObserver().Create(onExecute, typeof(T), ref _list);
+            var bind = new FiberMessage().Create(onExecute, typeof(T), this);
 
             _list.Add(bind);
 
             return bind;
+        }
+
+        public IDisposable Receive<T>(Action<T> onExecute, MonoBehaviour bindTarget)
+        {
+            var bind = (FiberMessage)Receive(onExecute);
+
+            if (bindTarget.TryGetComponent<MessageObserver>(out var x))
+            {
+                x.Observe(bind);
+            }
+            else
+            {
+                bindTarget.gameObject.AddComponent<MessageObserver>().Observe(bind);
+            }
+
+            return bind;
+        }
+
+        internal void Remove(FiberMessage target)
+        {
+            if (_list.Contains(target))
+                _list.Remove(target);
         }
     }
 }
