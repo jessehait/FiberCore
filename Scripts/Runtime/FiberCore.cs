@@ -35,10 +35,9 @@ namespace Fiber
             if (!IsInitialized)
             {
                 var coreObject = new GameObject("[FiberCore]");
-                var fiberCore  = coreObject.AddComponent<FiberCore>();
+                var fiberCore = coreObject.AddComponent<FiberCore>();
 
-                Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
-
+                fiberCore.GetOrCreateConfig();
                 fiberCore.Initialize();
 
                 DontDestroyOnLoad(coreObject);
@@ -53,6 +52,22 @@ namespace Fiber
             {
                 CoroutineHandler = gameObject.AddComponent<CoroutineHandler>();
                 ((FiberCore_FPSManager)FPS).Start();
+            }
+        }
+
+        private void GetOrCreateConfig()
+        {
+            Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
+
+            if (!Configurations)
+            {
+                var asset = ScriptableObject.CreateInstance<FiberCoreSettings>();
+
+                AssetDatabase.CreateAsset(asset, "Assets/Resources/FiberCoreSettings.asset");
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class FiberCore_SettingsEditor : EditorWindow
@@ -15,8 +16,28 @@ public class FiberCore_SettingsEditor : EditorWindow
 
     private void OnEnable()
     {
-        settingsSO = Resources.Load<FiberCoreSettings>("FiberCoreSettings");
+        GetOrCreateConfig();
         editor     = Editor.CreateEditor(settingsSO);
+    }
+
+    private void GetOrCreateConfig()
+    {
+        settingsSO = Resources.Load<FiberCoreSettings>("FiberCoreSettings");
+
+        if (!settingsSO)
+        {
+            var asset = CreateInstance<FiberCoreSettings>();
+            var path = Application.dataPath + "/Resources";
+
+            if (!Directory.Exists(path))
+                AssetDatabase.CreateFolder("Assets", "Resources");
+
+            AssetDatabase.CreateAsset(asset, "Assets/Resources/FiberCoreSettings.asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            settingsSO = Resources.Load<FiberCoreSettings>("FiberCoreSettings");
+        }
     }
 
     private void OnGUI()
