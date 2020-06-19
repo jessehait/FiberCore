@@ -15,4 +15,7 @@ public class FiberCoreSettings : ScriptableObject
 
     [SerializeField] private bool _autoUpdateResourceList;
     public bool AutoUpdateResourceList => _autoUpdateResourceList;
+
+    [SerializeField] private bool _calculateFPS;
+    public bool CalculateFPS => _calculateFPS;
 }

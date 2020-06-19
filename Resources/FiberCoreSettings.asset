@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9a40f02474cb847860bc463ca1038b, type: 3}
   m_Name: FiberCoreSettings
   m_EditorClassIdentifier: 
-  _allowLogs: 0
-  _allowWarnings: 0
-  _allowErrors: 0
+  _allowLogs: 1
+  _allowWarnings: 1
+  _allowErrors: 1
   _autoUpdateResourceList: 1
+  _calculateFPS: 1

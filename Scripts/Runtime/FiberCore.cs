@@ -6,6 +6,7 @@ using UnityEditor;
 
 namespace Fiber
 {
+    [AddComponentMenu(""),DisallowMultipleComponent]
     public sealed class FiberCore : MonoBehaviour
     {
         #region API
@@ -17,8 +18,9 @@ namespace Fiber
         public static IMessageManager   Message          { get; private set; }
         public static IAudioManager     Audio            { get; private set; }
         public static IResourceManager  Resources        { get; private set; }
+        public static IFPSManager       FPS              { get; private set; }
         public static ICoroutineHandler CoroutineHandler { get; private set; }
-        public static FiberCoreSettings Configurations   { get; internal set; }
+        public static FiberCoreSettings Configurations   { get; private set; }
         #endregion
 
         internal static bool            IsInitialized    { get; private set; }
@@ -48,26 +50,30 @@ namespace Fiber
         private void InitializeMono()
         {
             if (!gameObject.TryGetComponent(out CoroutineHandler handler))
+            {
                 CoroutineHandler = gameObject.AddComponent<CoroutineHandler>();
+                ((FiberCore_FPSManager)FPS).Start();
+            }
         }
 
         private void CreateManagers()
         {
-            Instances          = new FiberCore_InstanceManager();
-            Delays             = new FiberCore_DelayManager();
-            UI                 = new FiberCore_UIManager();
-            FileData           = new FiberCore_DataManager();
-            PrefData           = new FiberCore_RegistryManager();
-            Audio              = new FiberCore_AudioManager();
-            Resources          = new FiberCore_ResourceManager();
-            Message            = new FiberCore_MessageManager();
+            Instances = new FiberCore_InstanceManager();
+            Delays    = new FiberCore_DelayManager();
+            UI        = new FiberCore_UIManager();
+            FileData  = new FiberCore_DataManager();
+            PrefData  = new FiberCore_RegistryManager();
+            Audio     = new FiberCore_AudioManager();
+            Resources = new FiberCore_ResourceManager();
+            Message   = new FiberCore_MessageManager();
+            FPS       = new FiberCore_FPSManager();
         }
 
         private void FillApplicationData()
         {
-            AppPath      = Application.dataPath;
-            AppDataPath  = Application.persistentDataPath;
-            AppName      = Application.productName;
+            AppPath     = Application.dataPath;
+            AppDataPath = Application.persistentDataPath;
+            AppName     = Application.productName;
         }
 
         private void ChechResourceList()
@@ -98,7 +104,6 @@ namespace Fiber
             #if UNITY_EDITOR
             if(Configurations.AutoUpdateResourceList)
                 Editor.FiberCore_BuildPreprocess.UpdateResources(AppPath);
-            
             #endif
         }
 

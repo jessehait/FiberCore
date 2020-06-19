@@ -38,6 +38,7 @@ public class FiberSettingsEditor: Editor
             serializedObject.FindProperty("_allowWarnings"),
             serializedObject.FindProperty("_allowErrors"),
             serializedObject.FindProperty("_autoUpdateResourceList"),
+            serializedObject.FindProperty("_calculateFPS"),
         };
     }
 
