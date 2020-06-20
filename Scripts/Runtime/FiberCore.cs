@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 using Fiber.Core;
-using System.IO;
-using UnityEditor;
-using Fiber.Editor;
 
 namespace Fiber
 {
@@ -57,16 +54,10 @@ namespace Fiber
 
         private void GetConfig()
         {
-            FiberCore_EditorFeatures.CheckFiberSettingsFile();
+            #if UNITY_EDITOR
+            Editor.FiberCore_EditorFeatures.CheckFiberSettingsFile();
+            #endif
             Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
-        }
-
-
-        [ContextMenu("Test")]
-        public void Test1()
-        {
-            FiberCore_EditorFeatures.CheckResourcesManifest();
-            FiberCore_EditorFeatures.CheckFiberSettingsFile();
         }
 
         private void CreateManagers()
@@ -92,7 +83,7 @@ namespace Fiber
         private void RefreshResources()
         {
             #if UNITY_EDITOR
-            FiberCore_EditorFeatures.CheckResourcesManifest();
+            Editor.FiberCore_EditorFeatures.CheckResourcesManifest();
             #endif
         }
 

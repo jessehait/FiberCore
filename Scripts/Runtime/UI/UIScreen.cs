@@ -1,6 +1,4 @@
-﻿using Fiber.Core;
-using UnityEditor.XR;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fiber.UI
 {
