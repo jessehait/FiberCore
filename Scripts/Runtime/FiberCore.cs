@@ -2,7 +2,7 @@
 using Fiber.Core;
 using System.IO;
 using UnityEditor;
-
+using Fiber.Editor;
 
 namespace Fiber
 {
@@ -37,7 +37,7 @@ namespace Fiber
                 var coreObject = new GameObject("[FiberCore]");
                 var fiberCore = coreObject.AddComponent<FiberCore>();
 
-                fiberCore.GetOrCreateConfig();
+                fiberCore.GetConfig();
                 fiberCore.Initialize();
 
                 DontDestroyOnLoad(coreObject);
@@ -55,20 +55,18 @@ namespace Fiber
             }
         }
 
-        private void GetOrCreateConfig()
+        private void GetConfig()
         {
+            FiberCore_EditorFeatures.CheckFiberSettingsFile();
             Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
+        }
 
-            if (!Configurations)
-            {
-                var asset = ScriptableObject.CreateInstance<FiberCoreSettings>();
 
-                AssetDatabase.CreateAsset(asset, "Assets/Resources/FiberCoreSettings.asset");
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-
-                Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
-            }
+        [ContextMenu("Test")]
+        public void Test1()
+        {
+            FiberCore_EditorFeatures.CheckResourcesManifest();
+            FiberCore_EditorFeatures.CheckFiberSettingsFile();
         }
 
         private void CreateManagers()
@@ -91,34 +89,10 @@ namespace Fiber
             AppName     = Application.productName;
         }
 
-        private void ChechResourceList()
-        {
-            #if UNITY_EDITOR
-            var path = AppPath + "/Resources";
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            if(!File.Exists(path + "/ResourcesInfo.txt"))
-            {
-                using (FileStream fs = File.Create(path + "/ResourcesInfo.txt"))
-                {
-                    fs.Flush();
-                    fs.Close();
-                }
-            }
-
-            AssetDatabase.Refresh();
-            #endif
-        }
-
         private void RefreshResources()
         {
             #if UNITY_EDITOR
-            if(Configurations.AutoUpdateResourceList)
-                Editor.FiberCore_BuildPreprocess.UpdateResources(AppPath);
+            FiberCore_EditorFeatures.CheckResourcesManifest();
             #endif
         }
 
@@ -130,7 +104,6 @@ namespace Fiber
         internal void Initialize()
         {
             FillApplicationData();
-            ChechResourceList();
             RefreshResources();
             GetResourceList();
             CreateManagers();
