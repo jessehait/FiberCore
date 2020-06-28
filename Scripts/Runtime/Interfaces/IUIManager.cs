@@ -1,6 +1,6 @@
-﻿using Fiber.UI;
+﻿using FiberCore.UI;
 
-namespace Fiber.Core
+namespace FiberCore
 {
     public interface IUIManager
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Fiber
+namespace FiberCore
 {
     public interface ICoroutineHandler
     {

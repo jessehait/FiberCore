@@ -1,7 +1,6 @@
 ﻿using System;
-using Fiber.Core;
 
-namespace Fiber.Message
+namespace FiberCore.Message
 {
     internal sealed class FiberMessage : IDisposable
     {

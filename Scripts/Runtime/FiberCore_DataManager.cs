@@ -1,10 +1,10 @@
-﻿using Fiber.Data;
+﻿using FiberCore.Data;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Fiber.Core
+namespace FiberCore
 {
     public sealed class FiberCore_DataManager : Manager, IDataManager
     {
@@ -13,6 +13,13 @@ namespace Fiber.Core
 
         public event Action OnSaveRequested;
         public event Action OnLoadRequested;
+
+
+
+        public override void Initialize()
+        {
+
+        }
 
         private void CheckDirectory()
         {

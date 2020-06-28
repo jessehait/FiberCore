@@ -1,13 +1,18 @@
-﻿using Fiber.Message;
+﻿using FiberCore.Message;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fiber.Core
+namespace FiberCore
 {
-    public class FiberCore_MessageManager: IMessageManager
+    public class FiberCore_MessageManager: Manager, IMessageManager
     {
         private List<FiberMessage> _list = new List<FiberMessage>();
+
+        public override void Initialize()
+        {
+
+        }
 
         public void Publish<T>(T message)
         {

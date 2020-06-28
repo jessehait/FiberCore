@@ -1,8 +1,8 @@
-﻿using Fiber.Instances;
+﻿using FiberCore.Instances;
 using System;
 using UnityEngine.SceneManagement;
 
-namespace Fiber.Core
+namespace FiberCore
 {
     public sealed class FiberCore_InstanceManager : Manager, IInstanceManager
     {
@@ -11,6 +11,10 @@ namespace Fiber.Core
 
         public Instance GetActiveInstance() => _activeInstance;
 
+        public override void Initialize()
+        {
+
+        }
 
         public void LoadInstance(int id, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace)
         {

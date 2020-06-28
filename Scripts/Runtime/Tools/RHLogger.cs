@@ -1,7 +1,6 @@
-﻿using Fiber.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Fiber.Tools
+namespace FiberCore.Tools
 {
     public static class Logger
     {

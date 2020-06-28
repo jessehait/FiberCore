@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-namespace Fiber.Core
+namespace FiberCore
 {
     public class FiberCore_FPSManager : Manager, IFPSManager
     {
+        public override void Initialize()
+        {
+            Start();
+        }
+
         public int Current
         {
             get
@@ -16,14 +22,29 @@ namespace Fiber.Core
                 return _current;
             }
         }
-
         private int _current;
+
 
         internal void Start()
         {
             if (!FiberCore.Configurations.CalculateFPS) return;
 
+            var targetFPS = (int)FiberCore.Configurations.LimitFPS;
+
+            if (targetFPS <= 0)
+            {
+                targetFPS = int.MaxValue;
+            }
+
+            SwitchVSync(FiberCore.Configurations.EnableVSync);
+            Limit(targetFPS);
+
             FiberCore.CoroutineHandler.StartCoroutine(Calculate());
+        }
+
+        public void SwitchVSync(bool value)
+        {
+            QualitySettings.vSyncCount = value ? 1 : 0;
         }
 
         public void Limit(int targetFPS)
@@ -36,6 +57,8 @@ namespace Fiber.Core
             Application.targetFrameRate = int.MaxValue;
         }
 
+        private List<int> test = new List<int>();
+
         private IEnumerator Calculate()
         {
             var deltaTime = 0f;
@@ -46,6 +69,7 @@ namespace Fiber.Core
 
                 deltaTime += Time.deltaTime;
                 deltaTime /= 2;
+
                 _current = (int)(1f / deltaTime);
             }
         }

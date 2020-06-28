@@ -2,10 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Fiber.Core
+namespace FiberCore
 {
     public sealed class FiberCore_DelayManager : Manager, IDelayManager
     {
+        public override void Initialize()
+        {
+
+        }
 
         public void WaitSeconds(float seconds, Action onComplete)
         {

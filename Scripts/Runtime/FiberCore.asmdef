@@ -1,0 +1,16 @@
+{
+    "name": "FiberCore",
+    "references": [
+        "GUID:fe584f0173ce7dd4bbcb2d341af2fe12",
+        "GUID:8b9188a22f471f744976ed1d3d3a87a7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,9 +1,10 @@
-﻿using System.IO;
+﻿using FiberCore.Common;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Fiber.Editor
+namespace FiberCore.Editor
 {
     public static class FiberCore_EditorFeatures
     {
@@ -14,7 +15,7 @@ namespace Fiber.Editor
         static FiberCore_EditorFeatures()
         {
             _resourcesPath = Application.dataPath + "/Resources";
-            _manifestPath  = "/ResourcesInfo";
+            _manifestPath  = "/ResourcesInfo.txt";
             _settingsPath  = "/FiberCoreSettings.asset";
         }
 
@@ -29,9 +30,9 @@ namespace Fiber.Editor
 
         private static void FillResourcesManifest()
         {
-            var allResources = Directory.GetFiles(_resourcesPath, "*.*", SearchOption.AllDirectories).Where(name => !name.EndsWith(".meta")).ToArray();
-
             File.Create(_resourcesPath + _manifestPath).Close();
+
+            var allResources = Directory.GetFiles(_resourcesPath, "*.*", SearchOption.AllDirectories).Where(name => !name.EndsWith(".meta")).ToArray();
 
             using (StreamWriter sw = File.AppendText(_resourcesPath + _manifestPath))
             {
@@ -41,18 +42,13 @@ namespace Fiber.Editor
                     sw.WriteLine(allResources[i]);
                 }
             }
+
+            AssetDatabase.Refresh(); 
         }
 
         public static void CheckResourcesManifest()
         {
             CheckResourceDirectory();
-
-            if (!File.Exists(_resourcesPath + _manifestPath))
-            {
-                var newAsset = new TextAsset();
-                AssetDatabase.CreateAsset(newAsset, "Assets/Resources" + _manifestPath);
-                SaveAndRefresh();
-            }
 
             FillResourcesManifest();
         }
@@ -63,7 +59,7 @@ namespace Fiber.Editor
 
             if (!File.Exists(_resourcesPath + _settingsPath))
             {
-                var newAsset = ScriptableObject.CreateInstance<FiberCoreSettings>();
+                var newAsset = ScriptableObject.CreateInstance<FiberCore_Settings>();
                 AssetDatabase.CreateAsset(newAsset, "Assets/Resources" + _settingsPath);
                 SaveAndRefresh();
             }

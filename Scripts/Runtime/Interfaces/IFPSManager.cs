@@ -1,6 +1,9 @@
-﻿public interface IFPSManager
+﻿namespace FiberCore
 {
-    int Current { get; }
-    void Limit(int targetFPS);
-    void Unlimit();
+    public interface IFPSManager
+    {
+        int Current { get; }
+        void Limit(int targetFPS);
+        void Unlimit();
+    }
 }

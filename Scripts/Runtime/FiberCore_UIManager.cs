@@ -1,9 +1,9 @@
-﻿using Fiber.UI;
+﻿using FiberCore.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Fiber.Core
+namespace FiberCore
 {
     public sealed class FiberCore_UIManager : Manager, IUIManager
     {
@@ -11,7 +11,7 @@ namespace Fiber.Core
 
         public bool ContainsScreen(string key) => _allScreens.ContainsKey(key.ToUpper());
 
-        public FiberCore_UIManager()
+        public override void Initialize()
         {
             FindScreens();
         }

@@ -1,33 +1,37 @@
 ﻿using UnityEngine;
-using Fiber.Core;
+using FiberCore.Common;
+using System.Collections.Generic;
 
-namespace Fiber
+namespace FiberCore
 {
-    [AddComponentMenu(""),DisallowMultipleComponent]
+    [AddComponentMenu(""), DisallowMultipleComponent]
     public sealed class FiberCore : MonoBehaviour
     {
         #region API
-        public static IInstanceManager  Instances        { get; private set; }
-        public static IDelayManager     Delays           { get; private set; }
-        public static IUIManager        UI               { get; private set; }
-        public static IDataManager      FileData         { get; private set; }
-        public static IRegistryManager  PrefData         { get; private set; }
-        public static IMessageManager   Message          { get; private set; }
-        public static IAudioManager     Audio            { get; private set; }
-        public static IResourceManager  Resources        { get; private set; }
-        public static IFPSManager       FPS              { get; private set; }
-        public static ICoroutineHandler CoroutineHandler { get; private set; }
-        public static FiberCoreSettings Configurations   { get; private set; }
+        public static IInstanceManager   Instances        { get; private set; }
+        public static IDelayManager      Delays           { get; private set; }
+        public static IUIManager         UI               { get; private set; }
+        public static IDataManager       FileData         { get; private set; }
+        public static IRegistryManager   PrefData         { get; private set; }
+        public static IMessageManager    Message          { get; private set; }
+        public static IAudioManager      Audio            { get; private set; }
+        public static IResourceManager   Resources        { get; private set; }
+        public static IFPSManager        FPS              { get; private set; }
+        public static IPoolManager       Pool             { get; private set; }
+        public static ICoroutineHandler  CoroutineHandler { get; private set; }
+        public static FiberCore_Settings Configurations   { get; private set; }
         #endregion
 
-        internal static bool            IsInitialized    { get; private set; }
-        internal static string          AppPath          { get; private set; }
-        internal static string          AppDataPath      { get; private set; }
-        internal static string          AppName          { get; private set; }
-        internal static string          ResourceList     { get; private set; }
+        internal static bool             IsInitialized    { get; private set; }
+        internal static string           AppPath          { get; private set; }
+        internal static string           AppDataPath      { get; private set; }
+        internal static string           AppName          { get; private set; }
+        internal static string           ResourceList     { get; private set; }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-        private static void Create()
+        private  List<Manager>           managers         = new List<Manager>();
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void Initialize()
         {
             if (!IsInitialized)
             {
@@ -35,7 +39,7 @@ namespace Fiber
                 var fiberCore = coreObject.AddComponent<FiberCore>();
 
                 fiberCore.GetConfig();
-                fiberCore.Initialize();
+                fiberCore.Load();
 
                 DontDestroyOnLoad(coreObject);
 
@@ -43,12 +47,11 @@ namespace Fiber
             }
         }
 
-        private void InitializeMono()
+        private void InitializeComponents()
         {
             if (!gameObject.TryGetComponent(out CoroutineHandler handler))
             {
                 CoroutineHandler = gameObject.AddComponent<CoroutineHandler>();
-                ((FiberCore_FPSManager)FPS).Start();
             }
         }
 
@@ -57,20 +60,28 @@ namespace Fiber
             #if UNITY_EDITOR
             Editor.FiberCore_EditorFeatures.CheckFiberSettingsFile();
             #endif
-            Configurations = UnityEngine.Resources.Load<FiberCoreSettings>("FiberCoreSettings");
+            Configurations = UnityEngine.Resources.Load<FiberCore_Settings>("FiberCoreSettings");
         }
 
         private void CreateManagers()
         {
-            Instances = new FiberCore_InstanceManager();
-            Delays    = new FiberCore_DelayManager();
-            UI        = new FiberCore_UIManager();
-            FileData  = new FiberCore_DataManager();
-            PrefData  = new FiberCore_RegistryManager();
-            Audio     = new FiberCore_AudioManager();
-            Resources = new FiberCore_ResourceManager();
-            Message   = new FiberCore_MessageManager();
-            FPS       = new FiberCore_FPSManager();
+            Instances = CreateManager<FiberCore_InstanceManager>();
+            Delays    = CreateManager<FiberCore_DelayManager>();
+            UI        = CreateManager<FiberCore_UIManager>();
+            FileData  = CreateManager<FiberCore_DataManager>();
+            PrefData  = CreateManager<FiberCore_RegistryManager>();
+            Audio     = CreateManager<FiberCore_AudioManager>();
+            Resources = CreateManager<FiberCore_ResourceManager>();
+            Message   = CreateManager<FiberCore_MessageManager>();
+            FPS       = CreateManager<FiberCore_FPSManager>();
+            Pool      = CreateManager<FiberCore_PoolManager>();
+        }
+
+        private T CreateManager<T>() where T : Manager, new()
+        {
+            var manager = new T();
+            managers.Add(manager);
+            return manager;
         }
 
         private void FillApplicationData()
@@ -89,16 +100,25 @@ namespace Fiber
 
         private void GetResourceList()
         {
-            ResourceList = (UnityEngine.Resources.Load("ResourcesInfo", typeof(TextAsset)) as TextAsset)?.text;
+            ResourceList = (UnityEngine.Resources.Load("ResourcesInfo", typeof(TextAsset)) as TextAsset).text;
         }
 
-        internal void Initialize()
+        private void InitializeManagers()
+        {
+            foreach (var item in managers)
+            {
+                item.Initialize();
+            }
+        }
+
+        internal void Load()
         {
             FillApplicationData();
             RefreshResources();
             GetResourceList();
             CreateManagers();
-            InitializeMono();
+            InitializeComponents();
+            InitializeManagers();
         }
     }
 }

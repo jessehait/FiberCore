@@ -1,9 +1,9 @@
-﻿using Fiber.Data;
+﻿using FiberCore.Data;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Fiber.Core
+namespace FiberCore
 {
     public class FiberCore_RegistryManager : Manager, IRegistryManager
     {
@@ -12,6 +12,11 @@ namespace Fiber.Core
 
         public event Action OnSaveRequested;
         public event Action OnLoadRequested;
+
+        public override void Initialize()
+        {
+
+        }
 
         public void RegisterType<T>() where T : BasicData, new()
         {
