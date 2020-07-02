@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using FiberCore.Common;
+using Fiber.Common;
 using System.Collections.Generic;
 
-namespace FiberCore
+namespace Fiber
 {
     [AddComponentMenu(""), DisallowMultipleComponent]
     public sealed class FiberCore : MonoBehaviour

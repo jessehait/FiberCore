@@ -1,10 +1,10 @@
-﻿using FiberCore.Common;
+﻿using Fiber.Common;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace FiberCore.Editor
+namespace Fiber.Editor
 {
     public static class FiberCore_EditorFeatures
     {

@@ -1,8 +1,8 @@
-﻿using FiberCore.Instances;
+﻿using Fiber.Instances;
 using System;
 using UnityEngine.SceneManagement;
 
-namespace FiberCore
+namespace Fiber
 {
     public sealed class FiberCore_InstanceManager : Manager, IInstanceManager
     {

@@ -1,9 +1,9 @@
-﻿using FiberCore.Common;
+﻿using Fiber.Common;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace FiberCore.Editor
+namespace Fiber.Editor
 {
     public class FiberCore_SettingsEditor : EditorWindow
     {

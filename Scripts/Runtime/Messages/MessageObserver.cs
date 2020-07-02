@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace FiberCore.Message
+namespace Fiber.Message
 {
     [DisallowMultipleComponent]
     public class MessageObserver : MonoBehaviour

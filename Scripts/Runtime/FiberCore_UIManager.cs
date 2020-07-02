@@ -1,9 +1,9 @@
-﻿using FiberCore.UI;
+﻿using Fiber.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace FiberCore
+namespace Fiber
 {
     public sealed class FiberCore_UIManager : Manager, IUIManager
     {

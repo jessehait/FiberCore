@@ -1,7 +1,7 @@
-﻿using FiberCore.Data;
+﻿using Fiber.Data;
 using System;
 
-namespace FiberCore
+namespace Fiber
 {
     public interface IRegistryManager
     {

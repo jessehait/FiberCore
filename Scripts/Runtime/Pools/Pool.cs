@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace FiberCore.Pools
+namespace Fiber.Pools
 {
     internal sealed class Pool : MonoBehaviour, IPool
     {

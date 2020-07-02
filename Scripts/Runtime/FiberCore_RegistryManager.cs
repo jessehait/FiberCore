@@ -1,9 +1,9 @@
-﻿using FiberCore.Data;
+﻿using Fiber.Data;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace FiberCore
+namespace Fiber
 {
     public class FiberCore_RegistryManager : Manager, IRegistryManager
     {

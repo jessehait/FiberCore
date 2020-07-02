@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FiberCore.Data
+namespace Fiber.Data
 {
     public interface IDataInfo
     {

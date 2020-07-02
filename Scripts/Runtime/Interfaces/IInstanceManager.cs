@@ -1,7 +1,7 @@
-﻿using FiberCore.Instances;
+﻿using Fiber.Instances;
 using System;
 
-namespace FiberCore
+namespace Fiber
 {
     public interface IInstanceManager
     {

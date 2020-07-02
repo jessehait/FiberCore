@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace FiberCore
+namespace Fiber
 {
     public class FiberCore_FPSManager : Manager, IFPSManager
     {

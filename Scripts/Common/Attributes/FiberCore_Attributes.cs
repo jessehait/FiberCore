@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace FiberCore.Common
+namespace Fiber.Common
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class FieldData : Attribute

@@ -1,4 +1,4 @@
-﻿namespace FiberCore
+﻿namespace Fiber
 {
     public interface IFPSManager
     {

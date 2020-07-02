@@ -1,9 +1,9 @@
-﻿using FiberCore.Audio;
+﻿using Fiber.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FiberCore
+namespace Fiber
 {
     public sealed class FiberCore_AudioManager : Manager, IAudioManager
     {

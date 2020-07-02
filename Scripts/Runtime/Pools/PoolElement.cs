@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FiberCore.Pools
+namespace Fiber.Pools
 {
     public abstract class PoolElement : MonoBehaviour, IPoolElement
     {

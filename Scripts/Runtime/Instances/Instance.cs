@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FiberCore.Instances
+namespace Fiber.Instances
 {
     public abstract class Instance: MonoBehaviour
     {

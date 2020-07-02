@@ -2,7 +2,7 @@
 using UnityEditor.Build.Reporting;
 
 
-namespace FiberCore.Editor
+namespace Fiber.Editor
 {
     public class FiberCore_BuildPreprocess : IPreprocessBuildWithReport
     {

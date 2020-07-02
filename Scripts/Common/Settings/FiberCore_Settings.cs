@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FiberCore.Common
+namespace Fiber.Common
 {
     public class FiberCore_Settings : ScriptableObject
     {

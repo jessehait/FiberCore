@@ -1,4 +1,4 @@
-﻿namespace FiberCore.Pools
+﻿namespace Fiber.Pools
 {
     public interface IPoolElement
     {

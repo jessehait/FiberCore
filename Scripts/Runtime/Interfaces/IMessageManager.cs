@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FiberCore
+namespace Fiber
 {
     public interface IMessageManager
     {

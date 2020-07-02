@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FiberCore.UI
+namespace Fiber.UI
 {
     public abstract class UIScreen: MonoBehaviour
     {

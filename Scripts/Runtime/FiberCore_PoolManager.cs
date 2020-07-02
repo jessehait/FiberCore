@@ -1,10 +1,10 @@
-﻿using FiberCore.Pools;
+﻿using Fiber.Pools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FiberCore
+namespace Fiber
 {
     public class FiberCore_PoolManager :Manager, IPoolManager
     {

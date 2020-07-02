@@ -1,7 +1,7 @@
-﻿using FiberCore.Pools;
+﻿using Fiber.Pools;
 using UnityEngine;
 
-namespace FiberCore
+namespace Fiber
 {
     public interface IPoolManager
     {

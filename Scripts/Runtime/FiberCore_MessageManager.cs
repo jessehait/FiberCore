@@ -1,9 +1,9 @@
-﻿using FiberCore.Message;
+﻿using Fiber.Message;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FiberCore
+namespace Fiber
 {
     public class FiberCore_MessageManager: Manager, IMessageManager
     {

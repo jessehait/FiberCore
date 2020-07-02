@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FiberCore
+namespace Fiber
 {
     public interface IDelayManager
     {
