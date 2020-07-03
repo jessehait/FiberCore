@@ -57,7 +57,7 @@ public class ExampleGameLoader : MonoBehaviour
 ### Game Data Example
 
 ```cs
-public class ExampleData: BasicData
+public class ExampleData: BasicPrefData
 {
     public int NextLevelID = 1;
 }
