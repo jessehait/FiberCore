@@ -9,10 +9,7 @@ namespace Fiber
     public class FiberCore_PoolManager :Manager, IPoolManager
     {
         private Dictionary<Type, IPool> _pools = new Dictionary<Type, IPool>();
-        private GameObject _root;
-
-
-        public static PoolExpandMethod Method = PoolExpandMethod.Expand;
+        private GameObject              _root;
 
 
         public override void Initialize()
@@ -78,34 +75,11 @@ namespace Fiber
             }
             else
             {
-                Debug.Log("There is no pool of type : \"" + typeof(T).Name + "\". Please Put something of this type.");
+                Debug.LogError("There is no pool of type : \"" + typeof(T).Name + "\". Please Put something of this type.");
                 return null;
             }
 
             return pool.GetElements<T>(count, newParent);
-        }
-
-
-        private IPool CreatePool<T>(PoolElement originalPrefab) where T : PoolElement
-        {
-            var type = typeof(T);
-
-            var poolRoot = new GameObject("[Pool of type]: " + type.Name);
-
-            if(!_root)
-            {
-                CreateManagerRoot();
-            }
-
-            poolRoot.transform.SetParent(_root.transform);
-
-            var pool = poolRoot.AddComponent<Pool>();
-
-            pool.Initialize(originalPrefab);
-
-            _pools.Add(type, pool);
-
-            return pool;
         }
 
 
@@ -125,6 +99,29 @@ namespace Fiber
         private bool Exists(Type type)
         {
             return _pools.ContainsKey(type);
+        }
+
+
+        private IPool CreatePool<T>(PoolElement originalPrefab) where T : PoolElement
+        {
+            var type = typeof(T);
+
+            var poolRoot = new GameObject("[Pool of type]: " + type.Name);
+
+            if (!_root)
+            {
+                CreateManagerRoot();
+            }
+
+            poolRoot.transform.SetParent(_root.transform);
+
+            var pool = poolRoot.AddComponent<Pool>();
+
+            pool.Initialize(originalPrefab);
+
+            _pools.Add(type, pool);
+
+            return pool;
         }
 
 

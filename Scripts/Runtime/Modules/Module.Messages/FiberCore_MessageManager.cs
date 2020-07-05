@@ -7,7 +7,7 @@ namespace Fiber
 {
     public class FiberCore_MessageManager: Manager, IMessageManager
     {
-        private List<FiberMessage> _list = new List<FiberMessage>();
+        private List<IFiberMessageReceiver> _list = new List<IFiberMessageReceiver>();
 
         public override void Initialize()
         {
@@ -18,42 +18,41 @@ namespace Fiber
         {
             foreach (var item in _list)
             {
-                if (item.Compare<T>())
+                if (item.Compare(typeof(T)))
                 {
                     item.Execute(message);
                 }
             }
         }
 
-        public IDisposable Receive<T>(Action<T> onExecute)
+        public IObservableMessage<T> Receive<T>()
         {
-            var bind = new FiberMessage().Create(onExecute, typeof(T), this);
-
-            _list.Add(bind);
+            var bind = new FiberMessageReceiver<T>(typeof(T), this);
 
             return bind;
         }
 
-        public IDisposable Receive<T>(Action<T> onExecute, MonoBehaviour bindTarget)
+        internal void Bind(IFiberMessageReceiver message, MonoBehaviour target)
         {
-            var bind = (FiberMessage)Receive(onExecute);
-
-            if (bindTarget.TryGetComponent<FiberMessageObserver>(out var x))
+            if (target.TryGetComponent<FiberMessageObserver>(out var x))
             {
-                x.Observe(bind);
+                x.Observe(message);
             }
             else
             {
-                bindTarget.gameObject.AddComponent<FiberMessageObserver>().Observe(bind);
+                target.gameObject.AddComponent<FiberMessageObserver>().Observe(message);
             }
-
-            return bind;
         }
 
-        internal void Remove(FiberMessage target)
+        internal void Remove(IFiberMessageReceiver target)
         {
             if (_list.Contains(target))
                 _list.Remove(target);
+        }
+
+        internal void Add(IFiberMessageReceiver target)
+        {
+            _list.Add(target);
         }
     }
 }

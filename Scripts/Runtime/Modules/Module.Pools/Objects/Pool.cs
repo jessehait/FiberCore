@@ -6,15 +6,22 @@ namespace Fiber.Pools
 {
     internal sealed class Pool : MonoBehaviour, IPool
     {
-        private List<PoolElement> _pool     = new List<PoolElement>();
-        private List<PoolElement> _released = new List<PoolElement>();
+        private List<PoolElement> _pool;
+        private List<PoolElement> _released;
         private PoolElement       _original;
         private bool              _cleanUp;
         private float             _nextCleanTime;
 
+        public int CountTotal    => _pool.Count + _released.Count;
+        public int CountReserved => _pool.Count;
+        public int CountReleased => _released.Count;
+
         public void Initialize(PoolElement original)
         {
             _original = original;
+            _pool     = new List<PoolElement>();
+            _released = new List<PoolElement>();
+
             gameObject.SetActive(false);
         }
 
@@ -44,19 +51,12 @@ namespace Fiber.Pools
             if (element && newParent)
             {
                 element.transform.SetParent(newParent);
-                element.transform.localPosition = Vector3.zero;
-                element.transform.localRotation = Quaternion.identity;
+                element.transform.SetPositionAndRotation(newParent.position, newParent.rotation);
             }
 
             RefreshCleanUpTime(); 
 
             return element;
-        }
-
-        public void CleanUp(bool value)
-        {
-            _cleanUp = value;
-            RefreshCleanUpTime();
         }
 
         public IPoolElement[] GetElements(int count, Transform newParent = null)
@@ -70,6 +70,7 @@ namespace Fiber.Pools
 
             return result;
         }
+
 
         public T[] GetElements<T>(int count, Transform newParent = null) where T : PoolElement
         {
@@ -97,6 +98,7 @@ namespace Fiber.Pools
             }
         }
 
+
         public void ReturnElement(PoolElement element)
         {
             if (_released.Contains(element))
@@ -107,9 +109,9 @@ namespace Fiber.Pools
             element.OnReturn();
 
             element.transform.SetParent(transform);
-            element.transform.localPosition = Vector3.zero;
-            element.transform.localRotation = Quaternion.identity;
+            element.transform.SetPositionAndRotation(transform.position, transform.rotation);
         }
+
 
         internal void CleanCycle()
         {
@@ -127,10 +129,18 @@ namespace Fiber.Pools
         }
 
 
+        internal void CleanUp(bool value)
+        {
+            _cleanUp = value;
+            RefreshCleanUpTime();
+        }
+
+
         private void RefreshCleanUpTime()
         {
             _nextCleanTime = 0;
         }
+
 
         private PoolElement Duplicate(PoolElement element)
         {
@@ -143,7 +153,6 @@ namespace Fiber.Pools
         }
 
 
-
         private void RemoveFirst()
         {
             var element = (PoolElement)GetElement();
@@ -152,6 +161,7 @@ namespace Fiber.Pools
 
             Destroy(element.gameObject);
         }
+
 
         private PoolElement GetAndRelease()
         {

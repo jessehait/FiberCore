@@ -1,12 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using Fiber.Message;
 
 namespace Fiber
 {
     public interface IMessageManager
     {
         void Publish<T>(T message);
-        IDisposable Receive<T>(Action<T> onExecute);
-        IDisposable Receive<T>(Action<T> onExecute, MonoBehaviour bindTarget);
+        IObservableMessage<T> Receive<T>();
     }
 }

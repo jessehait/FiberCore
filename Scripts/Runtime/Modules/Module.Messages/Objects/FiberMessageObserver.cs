@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace Fiber.Message
 {
     [DisallowMultipleComponent]
     public class FiberMessageObserver : MonoBehaviour
     {
-        private List<FiberMessage> _list = new List<FiberMessage>();
+        private List<IFiberMessageReceiver> _list = new List<IFiberMessageReceiver>();
 
-        internal void Observe(FiberMessage message)
+        internal void Observe(IFiberMessageReceiver message)
         {
             if(!_list.Contains(message))
             {
@@ -16,7 +17,7 @@ namespace Fiber.Message
             }
         }
 
-        internal void Remove(FiberMessage message)
+        internal void Remove(IFiberMessageReceiver message)
         {
             if (_list.Contains(message))
             {
