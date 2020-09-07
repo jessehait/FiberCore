@@ -14,6 +14,12 @@ namespace Fiber
         public override void Initialize()
         {
             FindScreens();
+            FiberCore.Instances.OnInstanceChanged += Instances_OnInstanceChanged;
+        }
+
+        private void Instances_OnInstanceChanged(Instances.Instance obj)
+        {
+            FindScreens();
         }
 
         private void FindScreens()
