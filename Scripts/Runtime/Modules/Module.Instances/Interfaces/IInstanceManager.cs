@@ -10,6 +10,8 @@ namespace Fiber
         /// </summary>
         event Action<Instance> OnInstanceChanged;
 
+        void FindPreloadedInstance();
+
         /// <summary>
         /// Returns an active instance base controller
         /// </summary>

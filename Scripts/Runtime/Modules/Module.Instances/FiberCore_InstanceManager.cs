@@ -16,6 +16,20 @@ namespace Fiber
 
         }
 
+        public void FindPreloadedInstance()
+        {
+            var instance = UnityEngine.Object.FindObjectOfType<Instance>();
+
+            if (instance)
+            {
+
+                var id = instance.gameObject.scene.buildIndex;
+                instance.Initialize(id);
+                _activeInstance = instance;
+                OnInstanceChanged?.Invoke(instance);
+            }
+        }
+
         public void LoadInstance(int id, Action<Instance> onComplete = null, InstanceLoadMethod method = InstanceLoadMethod.Replace)
         {
             if (method == InstanceLoadMethod.Replace && _activeInstance)
