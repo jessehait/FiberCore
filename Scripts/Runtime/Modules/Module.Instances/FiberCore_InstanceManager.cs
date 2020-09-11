@@ -44,7 +44,7 @@ namespace Fiber
 
                 SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(id));
 
-                var instance = UnityEngine.Object.FindObjectOfType<Instance>();
+                var instance = SceneManager.GetActiveScene().GetRootGameObjects().Where(z => z.GetComponent<Instance>()).FirstOrDefault().GetComponent<Instance>();
 
                 if (instance)
                 {
